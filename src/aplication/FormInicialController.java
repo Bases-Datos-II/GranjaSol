@@ -20,7 +20,7 @@ public class FormInicialController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		cmbFamiliaAnimal.getItems().addAll("Bovinos","Aves","Rumiante","Porcino","Ovino","Caprino","Otro");
+		cmbFamiliaAnimal.getItems().addAll("Bovinos","Aves","Rumiante","Porcino","Ovino","Caprino");
 		cmbTipoAnimal.setItems(listaTipoAnimal);
 		cmbEspecieAnimal.setItems(listaEspecieAnimal);
 	}
