@@ -18,7 +18,7 @@
                         <Font name="Vrinda" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cboTipoAnimal" layoutX="29.0" layoutY="119.0" prefWidth="150.0" promptText="Tipo Animal" />
+                  <ComboBox fx:id="cmbTipoAnimal" layoutX="29.0" layoutY="119.0" prefWidth="150.0" promptText="Tipo Animal" />
                   <Label fx:id="lblNuevoCodigo" layoutX="14.0" layoutY="224.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" text="Codigo Animal:">
                      <font>
                         <Font size="10.0" />
@@ -26,7 +26,7 @@
                   </Label>
                   <Label fx:id="lblCodigoAnimal" layoutX="148.0" layoutY="224.0" text="Label" />
                   <Button fx:id="btnGuardar" layoutX="50.0" layoutY="267.0" mnemonicParsing="false" text="GUADAR" />
-                  <ComboBox fx:id="cboRazaAnimal" layoutX="29.0" layoutY="177.0" prefWidth="150.0" promptText="Raza Animal" />
+                  <ComboBox fx:id="cmbEspecieAnimal" layoutX="29.0" layoutY="177.0" prefWidth="150.0" promptText="Raza Animal" />
                </children>
             </AnchorPane>
             <AnchorPane>

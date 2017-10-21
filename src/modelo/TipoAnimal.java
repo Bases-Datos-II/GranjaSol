@@ -34,4 +34,13 @@ public class TipoAnimal{
 	public StringProperty NombreTipoProperty() {
 		return nombreTipo;
 	}
+
+	public void llenarTipoAnimal(){
+
+	}
+
+	@Override
+	public String toString(){
+		return nombreTipo.get();
+	}
 }
