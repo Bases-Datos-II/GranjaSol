@@ -6,10 +6,9 @@ import java.sql.SQLException;
 
 public class conexion {
 	private Connection connection;
-	private String URL ="jdbc:oracle:thin:@localhost:1521:xe";
+	private String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private final String USUARIO = "GSOL";
 	private final String CONTRASENA = "oracle";
-	private final String CONTROLADOR = "oracle.jdbc.OracleDriver";
 
 	public Connection getConexion() {
 		return connection;
@@ -21,7 +20,7 @@ public class conexion {
 
 	public void establecerConexion(){
 		try {
-			Class.forName("CONTROLADOR");
+			Class.forName("oracle.jdbc.OracleDriver");
 			connection = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

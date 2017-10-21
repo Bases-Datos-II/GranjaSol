@@ -13,7 +13,7 @@ import modelo.TipoAnimal;
 import utilidades.conexion;
 
 public class FormInicialController implements Initializable{
-	//Hacr conexión con la BD
+	//HacEr conexión con la BD
 	private conexion Conexion;
 
 	//Componentes GUI
@@ -27,12 +27,14 @@ public class FormInicialController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		int familia = 0;
 
 		Conexion = new conexion();
 		Conexion.establecerConexion();
 
 		//Inicializacion de Listas
 		listaTipoAnimal = FXCollections.observableArrayList();
+
 
 		//Enlance entre ComboBox y listas
 		cmbTipoAnimal.setItems(listaTipoAnimal);
@@ -41,7 +43,11 @@ public class FormInicialController implements Initializable{
 
 		//Llenado de ComboBox
 		cmbFamiliaAnimal.getItems().addAll("Bovinos","Aves","Rumiante","Porcino","Ovino","Caprino");
-		listaTipoAnimal.add(new TipoAnimal(1,"Vaca") );
+
+		familia = cmbFamiliaAnimal.getSelectionModel().getSelectedIndex();
+		TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, familia);
+
+		Conexion.cerrarConexion();
 	}
 
 

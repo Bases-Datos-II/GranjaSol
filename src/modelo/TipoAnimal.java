@@ -1,9 +1,19 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
+import com.sun.webkit.ContextMenu.ShowContext;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public class TipoAnimal{
 	private IntegerProperty codigoTipoAnimal;
@@ -35,9 +45,33 @@ public class TipoAnimal{
 		return nombreTipo;
 	}
 
-	public void llenarTipoAnimal(){
+	public static void llenarTipoAnimal(Connection connection, ObservableList<TipoAnimal> listaTipAn, int familia){
+		try {
+
+
+			Statement statement = connection.createStatement();
+			ResultSet resultado = statement.executeQuery("SELECT "
+					+ "CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL "
+					+ "WHERE CODIGO_TIPO_ANIMAL = 1 "
+					+ "OR CODIGO_TIPO_ANIMAL = 2");
+
+			while(resultado.next()){
+				listaTipAn.add(
+						new TipoAnimal(
+								resultado.getInt("CODIGO_TIPO_ANIMAL"),
+						resultado.getString("NOMBRE_TIPO")
+						)
+					);
+				JOptionPane.showInputDialog(familia);
+
+		}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
+
 
 	@Override
 	public String toString(){
