@@ -20,6 +20,7 @@ public class NutrientesPorAlimento{
 	//Metodos atributo: codigoAlimento
 	public Alimentos getCodigoAlimento() {
 		return codigoAlimento;
+	//MENSAJE PRUEBA
 	}
 	public void setCodigoAlimento(Alimentos codigoAlimento) {
 		this.codigoAlimento = codigoAlimento;
