@@ -3,10 +3,6 @@ package aplication;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +15,8 @@ import utilidades.conexion;
 public class FormInicialController implements Initializable{
 	//HacEr conexión con la BD
 	private conexion Conexion;
+	private String tipoAnimal;
+	int familia;
 
 	//Componentes GUI
 	@FXML private ComboBox cmbFamiliaAnimal;
@@ -36,7 +34,7 @@ public class FormInicialController implements Initializable{
 
 		//Inicializacion de Listas
 		listaTipoAnimal = FXCollections.observableArrayList();
-
+		listaEspecieAnimal = FXCollections.observableArrayList();
 
 		//Enlance entre ComboBox y listas
 		cmbTipoAnimal.setItems(listaTipoAnimal);
@@ -55,15 +53,37 @@ public class FormInicialController implements Initializable{
 	}
 
 	@FXML public void selecFamilia(){
-		int familia;
-		Conexion.establecerConexion();
+
 		familia = cmbFamiliaAnimal.getSelectionModel().getSelectedIndex();
 		listaTipoAnimal.clear();
+		/*
+		listaEspecieAnimal.clear();
+		*/
+		Conexion.establecerConexion();
+		/*
+		listaEspecieAnimal.clear();
+		*/
 		TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, familia);
-		Conexion.cerrarConexion();
+
+
 		System.out.print(familia);
 	}
 
+	@FXML public void selecTipoAnimal(){
+		listaEspecieAnimal.clear();
+
+		try{
+			Conexion.establecerConexion();
+		tipoAnimal = cmbTipoAnimal.getValue().getNombreTipo();
+
+		EspecieAnimal.llenarEspecieAnimal(Conexion.getConexion(), listaEspecieAnimal, familia, tipoAnimal);
+		//LISTO dime
+		Conexion.cerrarConexion();
+		}catch(Exception e){
+			System.out.println("Seleccioe un tipo de animal " + e);
+		}
+		System.out.println(tipoAnimal);
+	}
 	/*public void gestionarEventos(){
 
 		cmbFamiliaAnimal.getSelectionModel().selectedIndexProperty().addListener(

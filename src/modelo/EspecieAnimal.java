@@ -1,9 +1,16 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public class EspecieAnimal{
 	private IntegerProperty codigoEspecie;
@@ -67,5 +74,89 @@ String caracteristica, String uso) {
 	}
 	public StringProperty UsoProperty() {
 		return uso;
+	}
+
+	public static void llenarEspecieAnimal(Connection connection, ObservableList<EspecieAnimal> listaEspAn, int familia,String tipoAnimal){
+		System.out.println("Buscando Raza");
+		/*if (familia == 1)
+		{
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultado = statement.executeQuery("SELECT A.CODIGO_ESPECIE,"
+					+ "A.CODIGO_TIPO_ANIMAL, "
+					+ "A.NOMBRE_ESPECIE, "
+					+ "A.CARACTERISTICA, "
+					+ "A.USO, "
+					+ "B.NOMBRE_TIPO "
+					+ "FROM TBL_ESPECIE_ANIMAL A "
+					+ "INNER JOIN TBL_TIPO_ANIMAL B "
+					+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL)"
+					+ "WHERE A.CARACTERISTICA = 'BOVINO'  AND B.NOMBRE_TIPO = '"+tipoAnimal+"'");
+
+			while(resultado.next()){
+				listaEspAn.add(new EspecieAnimal
+						(resultado.getInt("CODIGO_ESPECIE"),
+						new TipoAnimal(
+								resultado.getInt("CODIGO_TIPO_ANIMAL"),
+								resultado.getString("NOMBRE_TIPO")
+								),
+						resultado.getString("NOMBRE_ESPECIE"),
+						resultado.getString("CARACTERISTICA"),
+						resultado.getString("USO")
+						)
+					);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}*/
+
+		 if (familia == 0)
+		    {
+		    try {
+		    	String consulta = "SELECT A.CODIGO_ESPECIE, "
+		    			+ "A.CODIGO_TIPO_ANIMAL, "
+		    			+ "A.NOMBRE_ESPECIE, "
+		    			+ "A.CARACTERISTICA, "
+		    			+ "A.USO, B.NOMBRE_TIPO "
+		    			+ "FROM TBL_ESPECIE_ANIMAL A "
+		    			+ "INNER JOIN TBL_TIPO_ANIMAL B "
+		    			+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
+		    			+ "WHERE A.CARACTERISTICA = 'BOVINO' AND "
+		    			+ "B.NOMBRE_TIPO = ? ";
+		    	PreparedStatement sentencia = connection.prepareStatement(consulta);
+		    	sentencia.setString(1, tipoAnimal);
+		    	/*sentencia.executeQuery(consulta)*/;
+		    	/*
+		      sentencia = connection.prepareStatement(consulta);
+		      */
+		       ResultSet resultado = sentencia.executeQuery();
+
+		      while(resultado.next()){
+		        listaEspAn.add(new EspecieAnimal
+		            (resultado.getInt("CODIGO_ESPECIE"),
+		            new TipoAnimal(
+		                resultado.getInt("CODIGO_TIPO_ANIMAL"),
+		                resultado.getString("NOMBRE_TIPO")
+		                ),
+		            resultado.getString("NOMBRE_ESPECIE"),
+		            resultado.getString("CARACTERISTICA"),
+		            resultado.getString("USO")
+		            )
+		          );
+		      }
+		    } catch (SQLException e) {
+
+		     System.out.println("Erro e llenar espacie animal "+ e);
+		    }
+		  }
+
+
+	}
+
+	@Override
+	public String toString(){
+		return nombreEspecie.get();
 	}
 }

@@ -52,7 +52,7 @@ public class TipoAnimal{
 			ResultSet resultado = statement.executeQuery("SELECT "
 					+ "CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL "
 					+ "WHERE CODIGO_TIPO_ANIMAL = 1 "
-					+ "OR CODIGO_TIPO_ANIMAL = 2");
+					+ "OR CODIGO_TIPO_ANIMAL = 2 ");
 
 			while(resultado.next()){
 				listaTipAn.add(
@@ -68,13 +68,17 @@ public class TipoAnimal{
 			e.printStackTrace();
 		}
 		}
+
 		if(familia == 1) {
 			try {
 				Statement statement = connection.createStatement();
-				ResultSet resultado = statement.executeQuery("SELECT "
-						+ "CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL "
-						+ "WHERE CODIGO_TIPO_ANIMAL = 3 "
-						+ "OR CODIGO_TIPO_ANIMAL = 4");
+				ResultSet resultado = statement.executeQuery("SELECT CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL WHERE CODIGO_TIPO_ANIMAL = 3 or "
+				+"CODIGO_TIPO_ANIMAL = 4 or "
+				+"CODIGO_TIPO_ANIMAL = 7 or "
+				+"CODIGO_TIPO_ANIMAL = 8 or "
+				+"CODIGO_TIPO_ANIMAL = 9 or "
+				+"CODIGO_TIPO_ANIMAL = 5 OR "
+				+"CODIGO_TIPO_ANIMAL = 6");
 
 				while(resultado.next()){
 					listaTipAn.add(
@@ -90,6 +94,33 @@ public class TipoAnimal{
 				e.printStackTrace();
 			}
 		}
+
+		if(familia == 2) {
+			try {
+				Statement statement = connection.createStatement();
+				ResultSet resultado = statement.executeQuery("SELECT CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL WHERE "
+				+"CODIGO_TIPO_ANIMAL = 10 or "
+				+"CODIGO_TIPO_ANIMAL = 11 or "
+				+"CODIGO_TIPO_ANIMAL = 12 or "
+				+"CODIGO_TIPO_ANIMAL = 13 or "
+				+"CODIGO_TIPO_ANIMAL = 14 OR "
+				+"CODIGO_TIPO_ANIMAL = 15");
+
+				while(resultado.next()){
+					listaTipAn.add(
+							new TipoAnimal(
+									resultado.getInt("CODIGO_TIPO_ANIMAL"),
+							resultado.getString("NOMBRE_TIPO")
+							)
+						);
+
+			}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 
