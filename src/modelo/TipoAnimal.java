@@ -46,9 +46,8 @@ public class TipoAnimal{
 	}
 
 	public static void llenarTipoAnimal(Connection connection, ObservableList<TipoAnimal> listaTipAn, int familia){
+		if (familia == 0){
 		try {
-
-
 			Statement statement = connection.createStatement();
 			ResultSet resultado = statement.executeQuery("SELECT "
 					+ "CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL "
@@ -62,15 +61,37 @@ public class TipoAnimal{
 						resultado.getString("NOMBRE_TIPO")
 						)
 					);
-				JOptionPane.showInputDialog(familia);
 
 		}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		}
+		if(familia == 1) {
+			try {
+				Statement statement = connection.createStatement();
+				ResultSet resultado = statement.executeQuery("SELECT "
+						+ "CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL "
+						+ "WHERE CODIGO_TIPO_ANIMAL = 3 "
+						+ "OR CODIGO_TIPO_ANIMAL = 4");
 
+				while(resultado.next()){
+					listaTipAn.add(
+							new TipoAnimal(
+									resultado.getInt("CODIGO_TIPO_ANIMAL"),
+							resultado.getString("NOMBRE_TIPO")
+							)
+						);
+
+			}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
+
 
 
 	@Override

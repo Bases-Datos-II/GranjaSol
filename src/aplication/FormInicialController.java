@@ -3,6 +3,10 @@ package aplication;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,8 +31,6 @@ public class FormInicialController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		int familia = 0;
-
 		Conexion = new conexion();
 		Conexion.establecerConexion();
 
@@ -43,13 +45,37 @@ public class FormInicialController implements Initializable{
 
 		//Llenado de ComboBox
 		cmbFamiliaAnimal.getItems().addAll("Bovinos","Aves","Rumiante","Porcino","Ovino","Caprino");
-
-		familia = cmbFamiliaAnimal.getSelectionModel().getSelectedIndex();
-		TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, familia);
+		selecFamilia();
+		/*TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, selecFamilia());*/
+		/*gestionarEventos();*/
 
 		Conexion.cerrarConexion();
+
+
 	}
 
+	@FXML public void selecFamilia(){
+		int familia;
+		Conexion.establecerConexion();
+		familia = cmbFamiliaAnimal.getSelectionModel().getSelectedIndex();
+		listaTipoAnimal.clear();
+		TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, familia);
+		Conexion.cerrarConexion();
+		System.out.print(familia);
+	}
 
+	/*public void gestionarEventos(){
+
+		cmbFamiliaAnimal.getSelectionModel().selectedIndexProperty().addListener(
+				new ChangeListener() {
+
+					@Override
+					public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+						System.out.println("Se selecciono elemento");
+
+					}
+
+		});
+		}*/
 
 }

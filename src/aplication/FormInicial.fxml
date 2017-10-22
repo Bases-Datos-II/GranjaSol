@@ -12,7 +12,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ComboBox fx:id="cmbFamiliaAnimal" layoutX="29.0" layoutY="61.0" prefWidth="150.0" promptText="Familia" />
+                  <ComboBox fx:id="cmbFamiliaAnimal" layoutX="29.0" layoutY="61.0" onAction="#selecFamilia" prefWidth="150.0" promptText="Familia" />
                   <Label layoutX="42.0" layoutY="24.0" text="CARACTERISTICAS">
                      <font>
                         <Font name="Vrinda" size="12.0" />
