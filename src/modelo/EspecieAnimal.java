@@ -152,6 +152,86 @@ String caracteristica, String uso) {
 		    }
 		  }
 
+		 if (familia == 1)
+		    {
+		    try {
+		    	String consulta = "SELECT A.CODIGO_ESPECIE, "
+		    			+ "A.CODIGO_TIPO_ANIMAL, "
+		    			+ "A.NOMBRE_ESPECIE, "
+		    			+ "A.CARACTERISTICA, "
+		    			+ "A.USO, B.NOMBRE_TIPO "
+		    			+ "FROM TBL_ESPECIE_ANIMAL A "
+		    			+ "INNER JOIN TBL_TIPO_ANIMAL B "
+		    			+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
+		    			+ "WHERE A.CARACTERISTICA = 'AVE' AND "
+		    			+ "B.NOMBRE_TIPO = ? ";
+		    	PreparedStatement sentencia = connection.prepareStatement(consulta);
+		    	sentencia.setString(1, tipoAnimal);
+		    	/*sentencia.executeQuery(consulta)*/;
+		    	/*
+		      sentencia = connection.prepareStatement(consulta);
+		      */
+		       ResultSet resultado = sentencia.executeQuery();
+
+		      while(resultado.next()){
+		        listaEspAn.add(new EspecieAnimal
+		            (resultado.getInt("CODIGO_ESPECIE"),
+		            new TipoAnimal(
+		                resultado.getInt("CODIGO_TIPO_ANIMAL"),
+		                resultado.getString("NOMBRE_TIPO")
+		                ),
+		            resultado.getString("NOMBRE_ESPECIE"),
+		            resultado.getString("CARACTERISTICA"),
+		            resultado.getString("USO")
+		            )
+		          );
+		      }
+		    } catch (SQLException e) {
+
+		     System.out.println("Erro e llenar espacie animal "+ e);
+		    }
+		  }
+
+		 if (familia == 2)
+		    {
+		    try {
+		    	String consulta = "SELECT A.CODIGO_ESPECIE, "
+		    			+ "A.CODIGO_TIPO_ANIMAL, "
+		    			+ "A.NOMBRE_ESPECIE, "
+		    			+ "A.CARACTERISTICA, "
+		    			+ "A.USO, B.NOMBRE_TIPO "
+		    			+ "FROM TBL_ESPECIE_ANIMAL A "
+		    			+ "INNER JOIN TBL_TIPO_ANIMAL B "
+		    			+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
+		    			+ "WHERE A.CARACTERISTICA = 'RUMIANTE' AND "
+		    			+ "B.NOMBRE_TIPO = ? ";
+		    	PreparedStatement sentencia = connection.prepareStatement(consulta);
+		    	sentencia.setString(1, tipoAnimal);
+		    	/*sentencia.executeQuery(consulta)*/;
+		    	/*
+		      sentencia = connection.prepareStatement(consulta);
+		      */
+		       ResultSet resultado = sentencia.executeQuery();
+
+		      while(resultado.next()){
+		        listaEspAn.add(new EspecieAnimal
+		            (resultado.getInt("CODIGO_ESPECIE"),
+		            new TipoAnimal(
+		                resultado.getInt("CODIGO_TIPO_ANIMAL"),
+		                resultado.getString("NOMBRE_TIPO")
+		                ),
+		            resultado.getString("NOMBRE_ESPECIE"),
+		            resultado.getString("CARACTERISTICA"),
+		            resultado.getString("USO")
+		            )
+		          );
+		      }
+		    } catch (SQLException e) {
+
+		     System.out.println("Erro e llenar espacie animal "+ e);
+		    }
+		  }
+
 
 	}
 
