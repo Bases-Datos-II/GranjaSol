@@ -1,8 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
 
+<AnchorPane prefHeight="306.0" prefWidth="691.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <SplitPane dividerPositions="0.5007256894049347" layoutX="79.0" layoutY="44.0" prefHeight="364.0" prefWidth="691.0" AnchorPane.bottomAnchor="-58.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="356.0" prefWidth="332.0">
+               <children>
+                  <GridPane layoutX="24.0" layoutY="34.0" prefHeight="271.0" prefWidth="291.0">
+                    <columnConstraints>
+                      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="94.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="141.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="34.0" minHeight="9.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="34.0" minHeight="9.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="39.0" minHeight="5.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Nombre Dieta" />
+                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                        <Label text="Animal" GridPane.rowIndex="4" />
+                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ListView prefHeight="68.0" prefWidth="97.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Fecha Inicio" GridPane.rowIndex="2" />
+                        <Label text="Fecha Fin" GridPane.rowIndex="3" />
+                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="14.0" layoutY="304.0" prefHeight="57.0" prefWidth="253.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Asignar Dieta">
+                           <HBox.margin>
+                              <Insets left="5.0" top="12.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Cancelar">
+                           <HBox.margin>
+                              <Insets top="12.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="416.0" prefWidth="301.0">
+               <children>
+                  <GridPane layoutX="14.0" layoutY="181.0" prefHeight="118.0" prefWidth="275.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Codigo Animal" />
+                        <Label text="Tipo" GridPane.rowIndex="1" />
+                        <Label text="Nutrientes que necesita" GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Edad" GridPane.rowIndex="3" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="14.0" layoutY="40.0" prefHeight="92.0" prefWidth="275.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Cantidad de nutrientes" />
+                        <Label text="Descripcion" GridPane.rowIndex="1" />
+                        <Label text="Porciones" GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
