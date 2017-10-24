@@ -1,11 +1,17 @@
 package modelo;
 
+
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public class Animal{
 	private StringProperty codigoAnimal;
@@ -90,7 +96,45 @@ String sexo, int necesidadNutri, int coste) {
 
 	}
 
-	public void llenarFamiliaAnimal(){
+	public static void llenarAnimal(Connection connection, ObservableList<Animal> listaAnimal){
+		try {
+			String consulta = "SELECT A.CODIGO_ANIMAL,"
+					+ "B.NOMBRE_ESPECIE,"
+					+ "fxEdadAnimal(TO_DATE(A.FECHA_NACIMIENTO,'DD-MM-YY')) as EDAD,"
+					+ "A.SEXO,"
+					+ "A.NECESIDAD_NUTRI,"
+					+ "A.COSTE_ANIMAL"
+					+ "FROM TBL_ANIMAL A"
+					+ "INNER JOIN TBL_ESPECIE_ANIMAL B"
+					+ "ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE)"
+					+ "INNER JOIN TBL_TIPO_ANIMAL C"
+					+ "ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL);";
+			Statement instruccion = connection.createStatement();
+			ResultSet resultado = instruccion.executeQuery(consulta);
+
+			while(resultado.next())
+			{
+				listaAnimal.add(new Animal(resultado.getString("CODIGO_ANIMAL"),
+							new EspecieAnimal(resultado.getInt("CODIGO_ESPECIE"),
+									new TipoAnimal(
+											resultado.getInt("CODIGO_TIPO_ANIMAL"),
+											resultado.getString("NOMBRE_TIPO")
+											),
+									resultado.getString("NOMBRE_ESPECIE"),
+									resultado.getString("CARACTERISTICA"),
+									resultado.getString("USO")),
+						resultado.getDate("FECHA_NACIMIENTO"),
+						resultado.getString("SEXO"),
+						resultado.getInt("NECESIDAD_NUTRI"),
+						resultado.getInt("COSTE_ANIMAL")
+						)
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 
 	}
 }

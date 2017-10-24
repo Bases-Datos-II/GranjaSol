@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import modelo.Animal;
 import modelo.EspecieAnimal;
 import modelo.TipoAnimal;
 import utilidades.conexion;
@@ -26,6 +27,7 @@ public class FormInicialController implements Initializable{
 	//Colecciones a Utilizar
 	private ObservableList<TipoAnimal> listaTipoAnimal;
 	private ObservableList<EspecieAnimal> listaEspecieAnimal;
+	private ObservableList<Animal> listaAnimal;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -35,6 +37,7 @@ public class FormInicialController implements Initializable{
 		//Inicializacion de Listas
 		listaTipoAnimal = FXCollections.observableArrayList();
 		listaEspecieAnimal = FXCollections.observableArrayList();
+		listaAnimal = FXCollections.observableArrayList();
 
 		//Enlance entre ComboBox y listas
 		cmbTipoAnimal.setItems(listaTipoAnimal);
