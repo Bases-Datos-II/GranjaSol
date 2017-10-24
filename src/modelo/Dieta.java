@@ -1,11 +1,16 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public class Dieta{
 	private IntegerProperty codigoDieta;
@@ -13,14 +18,16 @@ public class Dieta{
 	private Date fechaCreacion;
 	private IntegerProperty porciones;
 	private StringProperty recomendaciones;
+	private IntegerProperty Cantidadnut;
 
 	public Dieta(int codigoDieta, String nombreDieta, Date fechaCreacion,
-int porciones, String recomendaciones) {
+                 int porciones, String recomendaciones, int cantidadnutrientes) {
 		this.codigoDieta = new SimpleIntegerProperty(codigoDieta);
 		this.nombreDieta = new SimpleStringProperty(nombreDieta);
 		this.fechaCreacion = fechaCreacion;
 		this.porciones = new SimpleIntegerProperty(porciones);
 		this.recomendaciones = new SimpleStringProperty(recomendaciones);
+		this.Cantidadnut = new SimpleIntegerProperty(cantidadnutrientes);		
 	}
 
 	//Metodos atributo: codigoDieta
@@ -70,4 +77,43 @@ int porciones, String recomendaciones) {
 	public StringProperty RecomendacionesProperty() {
 		return recomendaciones;
 	}
+	
+	public int getCantidadNutrientes() {
+		return Cantidadnut.get();
+	}
+	public void setCantidadNutrientes(int cantidadnutrientes) {
+		this.Cantidadnut = new SimpleIntegerProperty(cantidadnutrientes);
+	}
+	public IntegerProperty CantidadNutruentesProperty() {
+		return Cantidadnut;
+	}
+	
+	public static void CargarDietas(Connection connection, ObservableList<Dieta> lista)
+	{
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultado = statement.executeQuery
+					("select CODIGO_DIETA, "
+							+ "NOMBRE_DIETA, "
+							+ "FECHA_CREACION, "
+							+ "PORCIONES, "
+							+ "RECOMENDACIONES "
+							+ "CANTIDAD_NUTRIENTES "
+							+ "from TBL_DIETA");
+			while(resultado.next())
+			{
+				lista.add(new Dieta(resultado.getInt("CODIGO_DIETA"), 
+						resultado.getString("NOMBRE_DIETA"), 
+						resultado.getDate("FECHA_CREACION"), 
+						resultado.getInt("PORCIONES"), 
+						resultado.getString("RECOMENDACIONES"), 
+						resultado.getInt("CANTIDAD_NUTRIENTES")));
+			}
+		} 
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+	}
+	
 }
