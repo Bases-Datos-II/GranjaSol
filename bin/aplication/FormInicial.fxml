@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="315.0" prefWidth="513.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
+<AnchorPane prefHeight="332.0" prefWidth="969.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
    <children>
-      <SplitPane dividerPositions="0.41113490364025695" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="513.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.20591233435270132, 0.5076452599388379" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="513.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="331.0" prefWidth="189.0">
                <children>
                   <ComboBox fx:id="cmbFamiliaAnimal" layoutX="29.0" layoutY="61.0" onAction="#selecFamilia" prefWidth="150.0" promptText="Familia" />
                   <Label layoutX="42.0" layoutY="24.0" text="CARACTERISTICAS">
@@ -29,7 +29,7 @@
                   <ComboBox fx:id="cmbEspecieAnimal" layoutX="29.0" layoutY="177.0" prefWidth="150.0" promptText="Raza Animal" />
                </children>
             </AnchorPane>
-            <AnchorPane>
+            <AnchorPane prefHeight="331.0" prefWidth="292.0">
                <children>
                   <DatePicker layoutX="28.0" layoutY="55.0" styleClass="label-bright" stylesheets="@../../resource/DarkTheme.css" />
                   <Label layoutX="26.0" layoutY="24.0" text="Ingrese Fecha Nacimiento Animal" />
@@ -37,6 +37,20 @@
                   <TextField layoutX="40.0" layoutY="131.0" />
                   <Label layoutX="12.0" layoutY="181.0" text="Requerimentos Caloricos Aproximados" />
                   <TextField layoutX="41.0" layoutY="215.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="331.0" prefWidth="452.0">
+               <children>
+                  <TableView layoutX="38.0" layoutY="40.0" prefHeight="331.0" prefWidth="479.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-19.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn prefWidth="65.0" text="Animal" />
+                      <TableColumn prefWidth="66.0" text="Especie" />
+                        <TableColumn prefWidth="50.0" text="Edad" />
+                        <TableColumn prefWidth="47.0" text="Sexo" />
+                        <TableColumn prefWidth="171.0" text="Necesidad Nutrimental" />
+                        <TableColumn prefWidth="171.0" text="Costo" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
         </items>
