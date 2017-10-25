@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="415.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormDietaController">
+   <children>
+      <SplitPane dividerPositions="0.4661134163208852" layoutX="46.0" layoutY="143.0" prefHeight="438.0" prefWidth="725.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane layoutX="20.0" layoutY="30.0" prefHeight="338.0" prefWidth="306.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                      <RowConstraints fillHeight="false" maxHeight="196.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Nombre Dieta" />
+                        <Label text="Fecha de Creación" GridPane.rowIndex="1" />
+                        <Label text="Porciones" GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Cantidad de nutrientes" GridPane.rowIndex="4" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Alimentos" GridPane.rowIndex="5" />
+                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ListView prefHeight="137.0" prefWidth="153.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Animal" GridPane.rowIndex="7" />
+                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label text="Descripción" GridPane.rowIndex="3" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="20.0" layoutY="368.0" prefHeight="48.0" prefWidth="349.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Nuevo" />
+                        <Button mnemonicParsing="false" text="actualizar" />
+                        <Button mnemonicParsing="false" text="Eliminar" />
+                        <Button mnemonicParsing="false" text="Guardar" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="372.0">
+               <children>
+                  <TableView layoutX="52.0" layoutY="100.0" prefHeight="436.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Nombre" />
+                      <TableColumn prefWidth="120.0" text="Fecha de creación" />
+                        <TableColumn prefWidth="120.0" text="Porciones" />
+                        <TableColumn prefWidth="120.0" text="Porciones" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
