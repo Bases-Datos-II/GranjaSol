@@ -18,16 +18,17 @@ public class Dieta{
 	private Date fechaCreacion;
 	private IntegerProperty porciones;
 	private StringProperty recomendaciones;
-	private IntegerProperty Cantidadnut;
+	private IntegerProperty cantnutri;
 
 	public Dieta(int codigoDieta, String nombreDieta, Date fechaCreacion,
-                 int porciones, String recomendaciones, int cantidadnutrientes) {
+                 int porciones, String recomendaciones, int cantnutri)
+	{
 		this.codigoDieta = new SimpleIntegerProperty(codigoDieta);
 		this.nombreDieta = new SimpleStringProperty(nombreDieta);
 		this.fechaCreacion = fechaCreacion;
 		this.porciones = new SimpleIntegerProperty(porciones);
 		this.recomendaciones = new SimpleStringProperty(recomendaciones);
-		this.Cantidadnut = new SimpleIntegerProperty(cantidadnutrientes);		
+		this.cantnutri = new SimpleIntegerProperty(cantnutri);
 	}
 
 	//Metodos atributo: codigoDieta
@@ -77,17 +78,17 @@ public class Dieta{
 	public StringProperty RecomendacionesProperty() {
 		return recomendaciones;
 	}
-	
+    //nutrientes
 	public int getCantidadNutrientes() {
-		return Cantidadnut.get();
+		return cantnutri.get();
 	}
 	public void setCantidadNutrientes(int cantidadnutrientes) {
-		this.Cantidadnut = new SimpleIntegerProperty(cantidadnutrientes);
+		this.cantnutri = new SimpleIntegerProperty(cantidadnutrientes);
 	}
-	public IntegerProperty CantidadNutruentesProperty() {
-		return Cantidadnut;
+	public IntegerProperty CantidadNutrientesProperty() {
+		return cantnutri;
 	}
-	
+
 	public static void CargarDietas(Connection connection, ObservableList<Dieta> lista)
 	{
 		try {
@@ -97,23 +98,28 @@ public class Dieta{
 							+ "NOMBRE_DIETA, "
 							+ "FECHA_CREACION, "
 							+ "PORCIONES, "
-							+ "RECOMENDACIONES "
+							+ "RECOMENDACIONES, "
 							+ "CANTIDAD_NUTRIENTES "
-							+ "from TBL_DIETA");
+							+ "from TBL_DIETA ");
 			while(resultado.next())
 			{
-				lista.add(new Dieta(resultado.getInt("CODIGO_DIETA"), 
-						resultado.getString("NOMBRE_DIETA"), 
-						resultado.getDate("FECHA_CREACION"), 
-						resultado.getInt("PORCIONES"), 
-						resultado.getString("RECOMENDACIONES"), 
-						resultado.getInt("CANTIDAD_NUTRIENTES")));
+				lista.add(new Dieta(resultado.getInt("CODIGO_DIETA"),
+						            resultado.getString("NOMBRE_DIETA"),
+						            resultado.getDate("FECHA_CREACION"),
+						            resultado.getInt("PORCIONES"),
+						            resultado.getString("RECOMENDACIONES"),
+						            resultado.getInt("CANTIDAD_NUTRIENTES")));
 			}
-		} 
+		}
 		catch (SQLException e) {
-		
+
 			e.printStackTrace();
 		}
 	}
-	
+	@Override
+	public String toString()
+	{
+		return nombreDieta.get();
+	}
+
 }
