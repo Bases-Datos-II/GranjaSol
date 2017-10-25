@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="332.0" prefWidth="969.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
+<AnchorPane prefHeight="332.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
    <children>
-      <SplitPane dividerPositions="0.20591233435270132, 0.5076452599388379" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="513.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.20591233435270132, 0.5076452599388379" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="331.0" prefWidth="189.0">
                <children>
@@ -19,7 +19,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cmbTipoAnimal" layoutX="29.0" layoutY="119.0" onAction="#selecTipoAnimal" prefWidth="150.0" promptText="Tipo Animal" />
-                  <Label fx:id="lblNuevoCodigo" layoutX="14.0" layoutY="224.0" styleClass="background" stylesheets="@../../resource/DarkTheme.css" text="Codigo Animal:">
+                  <Label fx:id="lblNuevoCodigo" layoutX="14.0" layoutY="224.0" styleClass="background" text="Codigo Animal:">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -41,14 +41,14 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="331.0" prefWidth="452.0">
                <children>
-                  <TableView fx:id="tblViewAnimales" layoutX="8.0" prefHeight="331.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tblViewAnimales" layoutX="14.0" layoutY="21.0" prefHeight="330.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="clmcodigoAnimal" prefWidth="65.0" text="Animal" />
-                      <TableColumn prefWidth="66.0" text="Especie" />
-                        <TableColumn prefWidth="50.0" text="Edad" />
-                        <TableColumn prefWidth="47.0" text="Sexo" />
-                        <TableColumn prefWidth="144.0" text="Necesidad Nutrimental" />
-                        <TableColumn prefWidth="64.0" text="Costo" />
+                      <TableColumn fx:id="clmncodigoAnimal" prefWidth="58.0" text="Animal" />
+                      <TableColumn fx:id="clmnnombreEspecieAnimal" prefWidth="58.0" text="Especie" />
+                        <TableColumn fx:id="clmnfechaNacimiento" prefWidth="99.0" text="Fecha Nacimiento" />
+                        <TableColumn fx:id="clmnsexo" prefWidth="46.0" text="Sexo" />
+                        <TableColumn fx:id="clmnnecesidadNutri" prefWidth="130.0" text="Necesidad Nutrientes" />
+                        <TableColumn fx:id="clmncoste" prefWidth="46.0" text="Costo" />
                     </columns>
                   </TableView>
                </children>
