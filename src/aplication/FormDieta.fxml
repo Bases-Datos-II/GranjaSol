@@ -6,7 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<<<<<<< HEAD
 <AnchorPane prefHeight="407.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormDietaController">
+=======
+<AnchorPane prefHeight="415.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormDietaController">
+>>>>>>> origin/master
    <children>
       <SplitPane dividerPositions="0.328781512605042" layoutX="46.0" layoutY="143.0" prefHeight="438.0" prefWidth="725.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -90,11 +94,18 @@
                <children>
                   <TableView fx:id="tvDieta" layoutX="52.0" layoutY="100.0" prefHeight="405.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
+<<<<<<< HEAD
                       <TableColumn fx:id="clmNombre" prefWidth="75.0" text="Nombre" />
                       <TableColumn fx:id="clmfechaCreacion" prefWidth="112.0" text="Fecha de creación" />
                         <TableColumn fx:id="clmPorciones" prefWidth="56.0" text="Porciones" />
                         <TableColumn fx:id="clmDescripcion" minWidth="0.0" prefWidth="223.0" text="Descripcion" />
                         <TableColumn fx:id="clmNutrientes" prefWidth="120.0" text="Cantidad Nutrientes" />
+=======
+                      <TableColumn prefWidth="75.0" text="Nombre" />
+                      <TableColumn prefWidth="120.0" text="Fecha de creación" />
+                        <TableColumn prefWidth="120.0" text="Porciones" />
+                        <TableColumn prefWidth="120.0" text="Porciones" />
+>>>>>>> origin/master
                     </columns>
                   </TableView>
                </children>

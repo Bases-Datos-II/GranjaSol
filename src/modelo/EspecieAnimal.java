@@ -235,6 +235,44 @@ String caracteristica, String uso) {
 
 	}
 
+	public static void llenarEspecieAnimal(Connection connection, ObservableList<EspecieAnimal> listaEspAn)
+	{
+			try {
+				String consulta = "SELECT A.CODIGO_ANIMAL,A.CODIGO_ESPECIE, B.CODIGO_TIPO_ANIMAL, "
+						+ "C.NOMBRE_TIPO,B.NOMBRE_ESPECIE,B.CARACTERISTICA,B.USO, "
+						+ "A.FECHA_NACIMIENTO, "
+						+ "A.SEXO, A.NECESIDAD_NUTRI, A.COSTE_ANIMAL "
+						+ "FROM TBL_ANIMAL A "
+						+ "INNER JOIN TBL_ESPECIE_ANIMAL B "
+						+ "ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
+						+ "INNER JOIN TBL_TIPO_ANIMAL C "
+						+ "ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL)";
+				Statement instruccion = connection.createStatement();
+				ResultSet resultado = instruccion.executeQuery(consulta);
+
+				while(resultado.next())
+				{
+					listaEspAn.add(new EspecieAnimal
+				            (resultado.getInt("CODIGO_ESPECIE"),
+				            new TipoAnimal(
+				                resultado.getInt("CODIGO_TIPO_ANIMAL"),
+				                resultado.getString("NOMBRE_TIPO")
+				                ),
+				            resultado.getString("NOMBRE_ESPECIE"),
+				            resultado.getString("CARACTERISTICA"),
+				            resultado.getString("USO")
+				            )
+				          );
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+		}
+
+
 	@Override
 	public String toString(){
 		return nombreEspecie.get();

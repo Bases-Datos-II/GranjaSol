@@ -1,6 +1,7 @@
 package aplication;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -8,6 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.Animal;
 import modelo.EspecieAnimal;
 import modelo.TipoAnimal;
@@ -19,10 +23,19 @@ public class FormInicialController implements Initializable{
 	private String tipoAnimal;
 	int familia;
 
+	//COLUMNAS TABLEVIEW
+	@FXML private TableColumn<Animal,String> clmncodigoAnimal;
+	@FXML private TableColumn<Animal,EspecieAnimal> clmnnombreEspecieAnimal;
+	@FXML private TableColumn<Animal,Date> clmnfechaNacimiento;
+	@FXML private TableColumn<Animal,String> clmnsexo;
+	@FXML private TableColumn<Animal,Number> clmnnecesidadNutri;
+	@FXML private TableColumn<Animal,Number> clmncoste;
+
 	//Componentes GUI
 	@FXML private ComboBox cmbFamiliaAnimal;
 	@FXML private ComboBox<TipoAnimal> cmbTipoAnimal;
 	@FXML private ComboBox<EspecieAnimal> cmbEspecieAnimal;
+	@FXML private TableView<Animal> tblViewAnimales;
 
 	//Colecciones a Utilizar
 	private ObservableList<TipoAnimal> listaTipoAnimal;
@@ -42,10 +55,20 @@ public class FormInicialController implements Initializable{
 		//Enlance entre ComboBox y listas
 		cmbTipoAnimal.setItems(listaTipoAnimal);
 		cmbEspecieAnimal.setItems(listaEspecieAnimal);
+		tblViewAnimales.setItems(listaAnimal);
+
+		//Enlazar Columnas con Atributos
+		clmncodigoAnimal.setCellValueFactory(new PropertyValueFactory<Animal,String>("codigoAnimal"));
+		clmnnombreEspecieAnimal.setCellValueFactory(new PropertyValueFactory<Animal,EspecieAnimal>("codigoEspecieAnimal"));
+		clmnfechaNacimiento.setCellValueFactory(new PropertyValueFactory<Animal,Date>("fechaNacimiento"));
+		clmnsexo.setCellValueFactory(new PropertyValueFactory<Animal,String>("sexo"));
+		clmnnecesidadNutri.setCellValueFactory(new PropertyValueFactory<Animal,Number>("necesidadNutri"));
+		clmncoste.setCellValueFactory(new PropertyValueFactory<Animal,Number>("coste"));
 
 
 		//Llenado de ComboBox
 		cmbFamiliaAnimal.getItems().addAll("Bovinos","Aves","Rumiante","Porcino","Ovino","Caprino");
+		Animal.llenarAnimal(Conexion.getConexion(), listaAnimal);
 		selecFamilia();
 		/*TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, selecFamilia());*/
 		/*gestionarEventos();*/
@@ -83,7 +106,7 @@ public class FormInicialController implements Initializable{
 		//LISTO dime
 		Conexion.cerrarConexion();
 		}catch(Exception e){
-			System.out.println("Seleccioe un tipo de animal " + e);
+			System.out.println("Seleccione un tipo de animal " + e);
 		}
 		System.out.println(tipoAnimal);
 	}
