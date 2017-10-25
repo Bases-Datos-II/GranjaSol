@@ -59,7 +59,7 @@ public class FormInicialController implements Initializable{
 
 		//Enlazar Columnas con Atributos
 		clmncodigoAnimal.setCellValueFactory(new PropertyValueFactory<Animal,String>("codigoAnimal"));
-		clmnnombreEspecieAnimal.setCellValueFactory(new PropertyValueFactory<Animal,EspecieAnimal>("nombreEspecie"));
+		clmnnombreEspecieAnimal.setCellValueFactory(new PropertyValueFactory<Animal,EspecieAnimal>("codigoEspecieAnimal"));
 		clmnfechaNacimiento.setCellValueFactory(new PropertyValueFactory<Animal,Date>("fechaNacimiento"));
 		clmnsexo.setCellValueFactory(new PropertyValueFactory<Animal,String>("sexo"));
 		clmnnecesidadNutri.setCellValueFactory(new PropertyValueFactory<Animal,Number>("necesidadNutri"));
