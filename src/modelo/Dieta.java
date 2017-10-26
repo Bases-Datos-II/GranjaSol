@@ -2,6 +2,7 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,95 +13,133 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
-public class Dieta{
-	private IntegerProperty codigoDieta;
-	private StringProperty nombreDieta;
-	private Date fechaCreacion;
+public class Dieta
+{
+	private IntegerProperty codigo;
+	private StringProperty nombre;
+	private Date fechacreacion;
 	private IntegerProperty porciones;
 	private StringProperty recomendaciones;
-	private IntegerProperty cantnutri;
+	private IntegerProperty cantidadnutrientes;
 
-	public Dieta(int codigoDieta, String nombreDieta, Date fechaCreacion,
-                 int porciones, String recomendaciones, int cantnutri)
+	public Dieta(int codigo,String nombre,Date fecha,int porciones,String recomendaciones,int cantidad)
 	{
-		this.codigoDieta = new SimpleIntegerProperty(codigoDieta);
-		this.nombreDieta = new SimpleStringProperty(nombreDieta);
-		this.fechaCreacion = fechaCreacion;
+		this.codigo = new SimpleIntegerProperty(codigo);
+		this.nombre = new SimpleStringProperty(nombre);
+		this.fechacreacion = fecha;
 		this.porciones = new SimpleIntegerProperty(porciones);
 		this.recomendaciones = new SimpleStringProperty(recomendaciones);
-		this.cantnutri = new SimpleIntegerProperty(cantnutri);
+		this.cantidadnutrientes = new SimpleIntegerProperty(cantidad);
 	}
 
-	//Metodos atributo: codigoDieta
-	public int getCodigoDieta() {
-		return codigoDieta.get();
+	public int getCodigo()
+	{
+		return codigo.get();
 	}
-	public void setCodigoDieta(int codigoDieta) {
-		this.codigoDieta = new SimpleIntegerProperty(codigoDieta);
+	public void setCodigo(int codigo)
+	{
+		this.codigo = new SimpleIntegerProperty(codigo);
 	}
-	public IntegerProperty CodigoDietaProperty() {
-		return codigoDieta;
+	public String getNombre()
+	{
+		return nombre.get();
 	}
-	//Metodos atributo: nombreDieta
-	public String getNombreDieta() {
-		return nombreDieta.get();
+	public void setNombre(String nombre)
+	{
+		this.nombre = new SimpleStringProperty(nombre);
 	}
-	public void setNombreDieta(String nombreDieta) {
-		this.nombreDieta = new SimpleStringProperty(nombreDieta);
+	public Date getFechaCreacion()
+	{
+		return fechacreacion;
 	}
-	public StringProperty NombreDietaProperty() {
-		return nombreDieta;
+	public void setFechaCreacion(Date fecha)
+	{
+		this.fechacreacion = fecha;
 	}
-	//Metodos atributo: fechaCreacion
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-	//Metodos atributo: porciones
-	public int getPorciones() {
+	public int getPorciones()
+	{
 		return porciones.get();
 	}
-	public void setPorciones(int porciones) {
+	public void setPorciones(int porciones)
+	{
 		this.porciones = new SimpleIntegerProperty(porciones);
 	}
-	public IntegerProperty PorcionesProperty() {
-		return porciones;
-	}
-	//Metodos atributo: recomendaciones
-	public String getRecomendaciones() {
+	public String getRecomedaciones()
+	{
 		return recomendaciones.get();
 	}
-	public void setRecomendaciones(String recomendaciones) {
-		this.recomendaciones = new SimpleStringProperty(recomendaciones);
+	public void setRecomendaciones(String recomenda)
+	{
+		this.recomendaciones = new SimpleStringProperty(recomenda);
 	}
-	public StringProperty RecomendacionesProperty() {
+	public int getCantidadNutrientes()
+	{
+		return cantidadnutrientes.get();
+	}
+	public void setCantidadNutrientes(int cantidad)
+	{
+		this.cantidadnutrientes = new SimpleIntegerProperty(cantidad);
+	}
+	public IntegerProperty codigoProperty()
+	{
+		return codigo;
+	}
+	public StringProperty nombreProperty()
+	{
+		return nombre;
+	}
+	public IntegerProperty porcionesProperty()
+	{
+		return porciones;
+	}
+	public StringProperty recomendacionesProperty()
+	{
 		return recomendaciones;
 	}
-    //nutrientes
-	public int getCantidadNutrientes() {
-		return cantnutri.get();
+	public IntegerProperty cantidadnutrientesProperty()
+	{
+		return cantidadnutrientes;
 	}
-	public void setCantidadNutrientes(int cantidadnutrientes) {
-		this.cantnutri = new SimpleIntegerProperty(cantidadnutrientes);
-	}
-	public IntegerProperty CantidadNutrientesProperty() {
-		return cantnutri;
+
+	public int GuardarDieta(Connection connection )
+	{
+		try
+		{
+			PreparedStatement instruccion = connection.prepareStatement
+					                                   ("INSERT INTO tbl_dieta (codigo_dieta, "
+					                                                         + "nombre_dieta, "
+					                                                         + "fecha_creacion, "
+					                                                         + "porciones, "
+					                                                         + "recomendaciones, "
+					                                                         + "cantidad_nutrientes) "
+					                                                         + "VALUES "
+					                                                         + "(S_DIETA.NEXTVAL,?,?,?,?,'')");
+			instruccion.setString(1, nombre.get());
+			instruccion.setDate(2, fechacreacion);
+			instruccion.setInt(3, porciones.get());
+			instruccion.setString(4, recomendaciones.get());
+			return instruccion.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	public static void CargarDietas(Connection connection, ObservableList<Dieta> lista)
 	{
-		try {
+		try
+		{
 			Statement statement = connection.createStatement();
 			ResultSet resultado = statement.executeQuery
-					("select CODIGO_DIETA, "
+					("SELECT CODIGO_DIETA, "
 							+ "NOMBRE_DIETA, "
 							+ "FECHA_CREACION, "
 							+ "PORCIONES, "
 							+ "RECOMENDACIONES, "
 							+ "CANTIDAD_NUTRIENTES "
-							+ "from TBL_DIETA ");
+							+ "FROM TBL_DIETA ");
 			while(resultado.next())
 			{
 				lista.add(new Dieta(resultado.getInt("CODIGO_DIETA"),
@@ -111,7 +150,8 @@ public class Dieta{
 						            resultado.getInt("CANTIDAD_NUTRIENTES")));
 			}
 		}
-		catch (SQLException e) {
+		catch (SQLException e)
+		{
 
 			e.printStackTrace();
 		}
@@ -119,7 +159,6 @@ public class Dieta{
 	@Override
 	public String toString()
 	{
-		return nombreDieta.get();
+		return nombre.get();
 	}
-
 }
