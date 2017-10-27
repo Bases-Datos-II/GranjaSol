@@ -18,7 +18,7 @@ public class FrmLoginController implements Initializable{
 		System.out.println("you clicked me");
 		Parent home_page_parent= FXMLLoader.load(getClass().getResource("FrmHistorial.fxml"));
 		Scene home_page_scene = new Scene(home_page_parent);
-		Stage app_stage
+		//Stage app_stage
 	}
 
 	@Override
