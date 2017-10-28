@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -71,7 +72,7 @@ public class FormInicialController implements Initializable{
 		Animal.llenarAnimal(Conexion.getConexion(), listaAnimal);
 		selecFamilia();
 		/*TipoAnimal.llenarTipoAnimal(Conexion.getConexion(), listaTipoAnimal, selecFamilia());*/
-		/*gestionarEventos();*/
+		gestionarEventos();
 
 		Conexion.cerrarConexion();
 
@@ -110,18 +111,11 @@ public class FormInicialController implements Initializable{
 		}
 		System.out.println(tipoAnimal);
 	}
-	/*public void gestionarEventos(){
 
-		cmbFamiliaAnimal.getSelectionModel().selectedIndexProperty().addListener(
-				new ChangeListener() {
+	public void gestionarEventos(){
 
-					@Override
-					public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-						System.out.println("Se selecciono elemento");
-
-					}
-
-		});
-		}*/
+		/*tblViewAnimales.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Animales>()3);
+		*/
+		}
 
 }
