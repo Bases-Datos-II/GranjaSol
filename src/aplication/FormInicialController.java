@@ -33,7 +33,7 @@ public class FormInicialController implements Initializable{
 	@FXML private TableColumn<Animal,Number> clmncoste;
 
 	//Componentes GUI
-	@FXML private ComboBox cmbFamiliaAnimal;
+	@FXML private ComboBox<String> cmbFamiliaAnimal;
 	@FXML private ComboBox<TipoAnimal> cmbTipoAnimal;
 	@FXML private ComboBox<EspecieAnimal> cmbEspecieAnimal;
 	@FXML private TableView<Animal> tblViewAnimales;

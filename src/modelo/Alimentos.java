@@ -1,16 +1,22 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
-class Alimentos{
+public class Alimentos{
 	private StringProperty nombreAlimento;
 	private IntegerProperty codigoAlimento;
 	private IntegerProperty calorias;
 
-	public Alimentos(String nombreAlimento, int codigoAlimento, int calorias) {
+	public Alimentos( int codigoAlimento,String nombreAlimento, int calorias) {
 		this.nombreAlimento = new SimpleStringProperty(nombreAlimento);
 		this.codigoAlimento = new SimpleIntegerProperty(codigoAlimento);
 		this.calorias = new SimpleIntegerProperty(calorias);
@@ -46,4 +52,35 @@ class Alimentos{
 	public IntegerProperty CaloriasProperty() {
 		return calorias;
 	}
+	public static void CargarAlimentos(Connection connection, ObservableList<Alimentos> lista )
+	{
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultado = statement.executeQuery
+					("select CODIGO_ALIMENTO, "
+							+ "NOMBRE_ALIMENTO, "
+							+ "CALORIAS "
+							+ "from TBL_ALIMENTOS");
+			while(resultado.next())
+			{
+				lista.add(new Alimentos(
+						              resultado.getInt("CODIGO_ALIMENTO"),
+					                  resultado.getString("NOMBRE_ALIMENTO"),
+					                  resultado.getInt("CALORIAS")
+					                  )
+				          );
+			}
+		} 
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public String toString()
+	{
+		return nombreAlimento.get();
+	}
+	
 }

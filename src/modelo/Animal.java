@@ -96,6 +96,12 @@ String sexo, int necesidadNutri, int coste) {
 
 	}
 
+	@Override
+	public String toString()
+	{
+		return codigoAnimal.get();
+	}
+
 	public static void llenarAnimal(Connection connection, ObservableList<Animal> listaAnimal){
 		try {
 			String consulta = "SELECT A.CODIGO_ANIMAL,A.CODIGO_ESPECIE, B.CODIGO_TIPO_ANIMAL, "
