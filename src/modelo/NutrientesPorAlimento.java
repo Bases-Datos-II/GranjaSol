@@ -25,4 +25,13 @@ public class NutrientesPorAlimento{
 	public void setCodigoAlimento(Alimentos codigoAlimento) {
 		this.codigoAlimento = codigoAlimento;
 	}
+	public void guardarRegisto() {
+		
+	}
+	public void actualizarRegistro() {
+		
+	}
+	public void eliminarRegistro() {
+		
+	}
 }

@@ -1,9 +1,15 @@
 package modelo;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public class Nutrientes{
 	private IntegerProperty codigoNutriente;
@@ -45,5 +51,41 @@ public class Nutrientes{
 	}
 	public StringProperty TipoNutrienteProperty() {
 		return tipoNutriente;
+	}
+	
+	public static void llenarInformacion(Connection connection, ObservableList<Nutrientes> lista) {
+		try {
+			Statement statement= connection.createStatement();
+			ResultSet resultado= statement.executeQuery(
+					"SELECT CODIGO_NUTRIENTE, "
+					+ "NOMBRE_NUTRIENTE, "
+					+ "TIPO_NUTRIENTE "
+					+ "FROM TBL_NUTRIENTES"
+			);
+			while(resultado.next()) {
+				lista.add(
+						new Nutrientes(
+						resultado.getInt("CODIGO_NUTRIENTE"),
+						resultado.getString("NOMBRE_NUTRIENTE"),
+						resultado.getString("TIPO_NUTRIENTE"))
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void guardarRegisto() {
+		
+	}
+	public void actualizarRegistro() {
+		
+	}
+	public void eliminarRegistro() {
+		
+	}
+	@Override
+	public String toString() {
+		return nombreNutriente.get();
 	}
 }

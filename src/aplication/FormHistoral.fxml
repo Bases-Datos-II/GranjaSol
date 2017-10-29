@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="416.0" prefWidth="606.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="416.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormHistorialController">
    <children>
       <SplitPane dividerPositions="0.5748792270531401" layoutX="108.0" orientation="VERTICAL" prefHeight="416.0" prefWidth="606.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -60,10 +59,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="cmbCodAnimal" prefWidth="150.0" GridPane.columnIndex="1" />
                         <Label text="Cod Animal" />
                         <Label text="Cod Dieta" GridPane.rowIndex="1" />
-                        <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cmbCodDieta" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Button mnemonicParsing="false" text="Ingresar Animal" GridPane.columnIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" />

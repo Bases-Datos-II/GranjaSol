@@ -159,6 +159,6 @@ public class Dieta
 	@Override
 	public String toString()
 	{
-		return nombre.get();
+		return String.valueOf(codigo.get());
 	}
 }

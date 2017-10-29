@@ -76,6 +76,16 @@ public class Alimentos{
 			e.printStackTrace();
 		}
 	}
+	//Funcionalidad de Formulario
+	public void guardarRegisto() {
+		
+	}
+	public void actualizarRegistro() {
+		
+	}
+	public void eliminarRegistro() {
+		
+	}
 	
 	@Override
 	public String toString()
