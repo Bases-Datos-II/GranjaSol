@@ -120,7 +120,20 @@ public class Alimentos{
 		}
 		
 	}
-	public void eliminarRegistro() {
+	public int eliminarRegistro(Connection connection) {
+		try {
+			PreparedStatement statement= connection.prepareStatement(
+					"DELETE FROM TBL_ALIMENTOS " + 
+					"WHERE " + 
+					"CODIGO_ALIMENTO= ?"
+					);
+			statement.setInt(1, getCodigoAlimento());
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 		
 	}
 	

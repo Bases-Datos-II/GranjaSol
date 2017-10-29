@@ -115,8 +115,20 @@ Date fechaInicio, Date fechaFin) {
 		}
 		
 	}
-	public void eliminarRegistro() {
-		
+	public int eliminarRegistro(Connection connection) {
+		try {
+			PreparedStatement instruccion = connection.prepareStatement(
+					"DELETE FROM TBL_HISTORIAL " + 
+					"WHERE " + 
+					"CODIGO_HISTORIAL= ?"
+					);
+			instruccion.setInt(1, getCodigoHistorial());
+			return instruccion.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	//Llenado de Informacion
 	public static void llenarInformacion(Connection connection, ObservableList<Historial> listaH) {

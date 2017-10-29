@@ -106,6 +106,21 @@ public class FormNutrientesController implements Initializable{
 					mensaje.show();
 				}
 	}
+	@FXML
+	public void eliminarRegistro() {
+				//Llamar al metodo guardar registro de la clase Historial
+				Acces.establecerConexion();
+				int resultado = tblViewNutrientes.getSelectionModel().getSelectedItem().eliminarRegistro(Acces.getConexion());
+				Acces.cerrarConexion();
+				if(resultado == 1) {
+					listaN.remove(tblViewNutrientes.getSelectionModel().getSelectedIndex());
+					Alert mensaje = new Alert(AlertType.INFORMATION);
+					mensaje.setTitle("Registro Eliminado");
+					mensaje.setContentText("El registro ha Eliminado exitosamente");
+					mensaje.setHeaderText("Resultado");
+					mensaje.show();
+				}
+	}
 	
 	public void gestionarEventos() {
 		tblViewNutrientes.getSelectionModel().selectedItemProperty().addListener(

@@ -113,7 +113,20 @@ public class Nutrientes{
 		}
 		
 	}
-	public void eliminarRegistro() {
+	public int eliminarRegistro(Connection connection) {
+		try {
+			PreparedStatement registro = connection.prepareStatement(
+					"DELETE FROM TBL_NUTRIENTES " + 
+					"WHERE " + 
+					"CODIGO_NUTRIENTE=?"
+					);
+			registro.setInt(1, getCodigoNutriente());
+			return registro.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 		
 	}
 	@Override

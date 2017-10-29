@@ -149,6 +149,21 @@ public class FormHistorialController implements Initializable{
 			mensaje.show();
 		}
 	}
+	@FXML
+	public void eliminarRegistro() {
+		
+		Acces.establecerConexion();
+		int resultado = tblViewHistorial.getSelectionModel().getSelectedItem().eliminarRegistro(Acces.getConexion());
+		Acces.cerrarConexion();
+		if(resultado == 1) {
+			listaH.remove(tblViewHistorial.getSelectionModel().getSelectedIndex()); 
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("Registro Eliminado");
+			mensaje.setContentText("El registro ha sido Eliminado exitosamente");
+			mensaje.setHeaderText("Resultado");
+			mensaje.show();
+		}
+	}
 	
 	@FXML
 	public void limpiarComponentes() {

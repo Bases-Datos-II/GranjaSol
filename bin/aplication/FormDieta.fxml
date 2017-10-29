@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="387.0" prefWidth="885.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormDietaController">
+   <children>
+      <SplitPane dividerPositions="0.3992932862190813" layoutX="46.0" layoutY="143.0" prefHeight="438.0" prefWidth="725.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane layoutX="13.0" layoutY="20.0" prefHeight="200.0" prefWidth="308.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="139.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Nombre Dieta" />
+                        <Label text="Fecha de Creación" GridPane.rowIndex="1" />
+                        <Label text="Porciones" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtNombre" disable="true" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtPorciones" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="dpkrFecha" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Descripción" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtDescripcion" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Button fx:id="btnGuardar" disable="true" mnemonicParsing="false" onAction="#guardarregistro" text="Guardar" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Cantidad Calorias" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtCalorias" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="14.0" layoutY="345.0" prefHeight="48.0" prefWidth="349.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#HabilitarNuevo" text="Nuevo" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+                  <GridPane layoutX="13.0" layoutY="225.0" prefHeight="61.0" prefWidth="308.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Alimentos" />
+                        <ComboBox fx:id="cmbAlimentos" disable="true" prefWidth="150.0" GridPane.columnIndex="1" />
+                        <Button fx:id="btnAgregar" disable="true" mnemonicParsing="false" onAction="#guardaralimdieta" text="Agregar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="13.0" layoutY="286.0" prefHeight="55.0" prefWidth="308.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Animal" />
+                        <ComboBox fx:id="cmbAnimal" disable="true" prefWidth="150.0" GridPane.columnIndex="1" />
+                        <Button fx:id="btnAsignar" disable="true" mnemonicParsing="false" onAction="#HabilitarAsignar" text="Asignar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="372.0">
+               <children>
+                  <TableView fx:id="tvDieta" layoutX="52.0" layoutY="100.0" prefHeight="436.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="clmNombre" prefWidth="75.0" text="Nombre" />
+                      <TableColumn fx:id="clmfechaCreacion" prefWidth="98.0" text="Fecha de creación" />
+                        <TableColumn fx:id="clmPorciones" prefWidth="62.0" text="Porciones" />
+                        <TableColumn fx:id="clmDescripcion" prefWidth="200.0" text="Descripcion" />
+                        <TableColumn fx:id="clmNutrientes" prefWidth="120.0" text="Cantidad Nutrientes" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
