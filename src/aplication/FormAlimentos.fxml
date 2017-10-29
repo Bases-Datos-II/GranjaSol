@@ -56,21 +56,31 @@
                         </Button>
                      </children>
                   </GridPane>
-                  <HBox layoutX="128.0" layoutY="155.0" prefHeight="31.0" prefWidth="370.0">
+                  <HBox layoutX="104.0" layoutY="155.0" prefHeight="31.0" prefWidth="499.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Agregar Alimento">
+                        <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#limpiarComponentes" text="Nuevo">
                            <HBox.margin>
-                              <Insets right="10.0" top="5.0" />
+                              <Insets bottom="5.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Actualizar Alimento">
+                        <Button fx:id="btnAgregar" mnemonicParsing="false" text="Agregar Alimento">
                            <HBox.margin>
-                              <Insets right="10.0" top="5.0" />
+                              <Insets bottom="5.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Eliminar Alimento">
+                        <Button fx:id="btnActualizar" disable="true" mnemonicParsing="false" text="Actualizar Alimento">
                            <HBox.margin>
-                              <Insets right="10.0" top="5.0" />
+                              <Insets bottom="5.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" text="Eliminar Alimento">
+                           <HBox.margin>
+                              <Insets bottom="5.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnVolver" mnemonicParsing="false" text="Volver">
+                           <HBox.margin>
+                              <Insets bottom="5.0" right="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>

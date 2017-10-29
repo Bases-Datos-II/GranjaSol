@@ -90,10 +90,25 @@ public class FormHistorialController implements Initializable{
 						dtpkrFechaIni.setValue(valorSeleccionado.getFechaInicio().toLocalDate());
 						dtpkrFechaFin.setValue(valorSeleccionado.getFechaFin().toLocalDate());
 						
+						btnGuardar.setDisable(true);
+						btnEliminar.setDisable(false);
+						btnActualizar.setDisable(false);
+						
 					}
 					
 		}
 				);
+	}
+	@FXML
+	public void limpiarComponentes() {
+		cmbCodAnimal.setValue(null);
+		cmbCodDieta.setValue(null);
+		dtpkrFechaIni.setValue(null);
+		dtpkrFechaFin.setValue(null);
+		
+		btnGuardar.setDisable(false);
+		btnEliminar.setDisable(true);
+		btnActualizar.setDisable(true);
 	}
 	
 

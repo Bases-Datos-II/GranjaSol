@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,6 +31,12 @@ public class FormAlimentosController implements Initializable{
 	@FXML private TextField txtCodAlimento;
 	@FXML private TextField txtNombre;
 	@FXML private TextField txtCalorias;
+	
+	@FXML private Button btnNuevo;
+	@FXML private Button btnAgregar;
+	@FXML private Button btnActualizar;
+	@FXML private Button btnEliminar;
+	@FXML private Button btnVolver;
 	
 	@FXML private ComboBox<Nutrientes> cmbNutrientes;
 	@FXML private TableView<Alimentos> tblViewAlimentos;
@@ -77,7 +84,22 @@ public class FormAlimentosController implements Initializable{
 						txtCodAlimento.setText(String.valueOf(valorSeleccionado.getCodigoAlimento()));
 						txtNombre.setText(valorSeleccionado.getNombreAlimento());
 						txtCalorias.setText(String.valueOf(valorSeleccionado.getCalorias()));
+						
+						btnAgregar.setDisable(true);
+						btnActualizar.setDisable(false);
+						btnEliminar.setDisable(false);
 					}
 		});
+	}
+	@FXML
+	public void limpiarComponentes() {
+		txtCodAlimento.setText(null);
+		txtNombre.setText(null);
+		txtCalorias.setText(null);
+		cmbNutrientes.setValue(null);
+		
+		btnAgregar.setDisable(false);
+		btnActualizar.setDisable(true);
+		btnEliminar.setDisable(true);
 	}
 }

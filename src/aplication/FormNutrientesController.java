@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,6 +26,12 @@ public class FormNutrientesController implements Initializable{
 	@FXML private TextField txtCodNutriente;
 	@FXML private TextField txtNombre;
 	@FXML private TextField txtTipo;
+	
+	@FXML private Button btnNuevo;
+	@FXML private Button btnGuardar;
+	@FXML private Button btnActualizar;
+	@FXML private Button btnEliminar;
+	@FXML private Button btnVolver;
 	
 	@FXML private TableView<Nutrientes> tblViewNutrientes;
 	
@@ -62,8 +69,22 @@ public class FormNutrientesController implements Initializable{
 						txtNombre.setText(valorSeleccionado.getNombreNutriente());
 						txtTipo.setText(valorSeleccionado.getTipoNutriente());
 						
+						btnGuardar.setDisable(true);
+						btnActualizar.setDisable(false);
+						btnEliminar.setDisable(false);
+						
 					}
 		});
+	}
+	@FXML
+	public void limpiarComponentes() {
+		txtCodNutriente.setText(null);
+		txtNombre.setText(null);
+		txtTipo.setText(null);
+		
+		btnGuardar.setDisable(false);
+		btnActualizar.setDisable(true);
+		btnEliminar.setDisable(true);
 	}
 
 }
