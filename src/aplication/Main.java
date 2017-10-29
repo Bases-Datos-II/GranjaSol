@@ -18,7 +18,7 @@ public class Main extends Application {
 
 		try {
 
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("FormNutrientes.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("FormAlimentos.fxml"));
 
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

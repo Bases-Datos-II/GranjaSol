@@ -70,7 +70,7 @@
                               <Insets bottom="4.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnActualizar" disable="true" mnemonicParsing="false" text="Actualizar Nutriente">
+                        <Button fx:id="btnActualizar" disable="true" mnemonicParsing="false" onAction="#actualizarRegistro" text="Actualizar Nutriente">
                            <font>
                               <Font size="11.0" />
                            </font>

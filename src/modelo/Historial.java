@@ -91,7 +91,28 @@ Date fechaInicio, Date fechaFin) {
 		} 
 		
 	}
-	public void actualizarRegistro() {
+	public int actualizarRegistro(Connection connection) {
+		try {
+			PreparedStatement instruccion = connection.prepareStatement(
+					"UPDATE TBL_HISTORIAL " + 
+					"SET " + 
+					" CODIGO_DIETA = ? " + 
+					" ,CODIGO_ANIMAL = ? " + 
+					" ,FECHA_INICIO = ? " + 
+					" ,FECHA_FIN = ? " + 
+					"WHERE " + 
+					"CODIGO_HISTORIAL=?"
+					);
+			instruccion.setInt(1, codigoDieta.getCodigo());
+			instruccion.setString(2, codigoAnimal.getCodigoAnimal());
+			instruccion.setDate(3, fechaInicio);
+			instruccion.setDate(4, fechaFin);
+			instruccion.setInt(5, getCodigoHistorial());
+			return instruccion.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 		
 	}
 	public void eliminarRegistro() {

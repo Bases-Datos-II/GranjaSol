@@ -1,7 +1,6 @@
 package aplication;
 
 import java.net.URL;
-//import java.sql.Date;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -19,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.Alimentos;
-//import modelo.Historial;
 import modelo.Nutrientes;
 import utilidades.conexion;
 
@@ -85,6 +83,7 @@ public class FormAlimentosController implements Initializable{
 					@Override
 					public void changed(ObservableValue<? extends Alimentos> observable, Alimentos valorAnterior,
 							Alimentos valorSeleccionado) {
+						if(valorSeleccionado!=null) {
 						txtCodAlimento.setText(String.valueOf(valorSeleccionado.getCodigoAlimento()));
 						txtNombre.setText(valorSeleccionado.getNombreAlimento());
 						txtCalorias.setText(String.valueOf(valorSeleccionado.getCalorias()));
@@ -93,6 +92,7 @@ public class FormAlimentosController implements Initializable{
 						btnAgregar.setDisable(true);
 						btnActualizar.setDisable(false);
 						btnEliminar.setDisable(false);
+						}
 					}
 		});
 	}
@@ -102,13 +102,13 @@ public class FormAlimentosController implements Initializable{
 	
 	@FXML
 	public void guardarRegistro() {
-		//Crear una nueva instancia del tipo Historial
+		//Crear una nueva instancia del tipo Alimento
 		Alimentos a= new Alimentos(
 				0, 
 				txtNombre.getText(), 
 				Integer.valueOf(txtCalorias.getText()) 
 				);
-		//Llamar al metodo guardar registro de la clase Historial
+		//Llamar al metodo guardar registro de la clase Alimento
 		Acceso.establecerConexion();
 		int resultado = a.guardarRegisto(Acceso.getConexion());
 		Acceso.cerrarConexion();
@@ -117,6 +117,28 @@ public class FormAlimentosController implements Initializable{
 			Alert mensaje = new Alert(AlertType.INFORMATION);
 			mensaje.setTitle("Registro Agregado");
 			mensaje.setContentText("El registro ha sido agregado exitosamente");
+			mensaje.setHeaderText("Resultado");
+			mensaje.show();
+		}
+		
+	}
+	@FXML
+	public void actualizarRegistro() {
+		//Crear una nueva instancia del tipo Alimento
+		Alimentos a= new Alimentos(
+				Integer.valueOf(txtCodAlimento.getText()), 
+				txtNombre.getText(), 
+				Integer.valueOf(txtCalorias.getText()) 
+				);
+		//Llamar al metodo guardar registro de la clase Historial
+		Acceso.establecerConexion();
+		int resultado = a.actualizarRegistro(Acceso.getConexion());
+		Acceso.cerrarConexion();
+		if(resultado == 1) {
+			listaAlimentos.set(tblViewAlimentos.getSelectionModel().getSelectedIndex(),a);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("Registro Actualizado");
+			mensaje.setContentText("El registro ha sido Actualizado exitosamente");
 			mensaje.setHeaderText("Resultado");
 			mensaje.show();
 		}

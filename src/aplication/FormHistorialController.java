@@ -46,6 +46,7 @@ public class FormHistorialController implements Initializable{
 	private ObservableList<Animal> listaAnimal;
 	private ObservableList<Dieta> listaDieta;
 	private ObservableList<Historial> listaH;
+	public Historial Valor;
 	
 	private conexion Acces;
 
@@ -87,15 +88,17 @@ public class FormHistorialController implements Initializable{
 					@Override
 					public void changed(ObservableValue<? extends Historial> observable, Historial valorAnterior,
 							Historial valorSeleccionado) {
+						if(valorSeleccionado!=null) {
 						cmbCodAnimal.setValue(valorSeleccionado.getCodigoAnimal());;
 						cmbCodDieta.setValue(valorSeleccionado.getCodigoDieta());
 						dtpkrFechaIni.setValue(valorSeleccionado.getFechaInicio().toLocalDate());
 						dtpkrFechaFin.setValue(valorSeleccionado.getFechaFin().toLocalDate());
+						Valor=new Historial(valorSeleccionado.getCodigoHistorial(), valorSeleccionado.getCodigoDieta(), valorSeleccionado.getCodigoAnimal(), valorSeleccionado.getFechaInicio(), valorSeleccionado.getFechaFin());
 						
 						btnGuardar.setDisable(true);
 						btnEliminar.setDisable(false);
 						btnActualizar.setDisable(false);
-						
+						}
 					}
 					
 		}
@@ -124,6 +127,27 @@ public class FormHistorialController implements Initializable{
 			mensaje.show();
 		}
 		
+	}
+	@FXML
+	public void actualizarRegistro() {
+		Historial a= new Historial(
+				Valor.getCodigoHistorial(), 
+				cmbCodDieta.getSelectionModel().getSelectedItem(), 
+				cmbCodAnimal.getSelectionModel().getSelectedItem(), 
+				Date.valueOf(dtpkrFechaIni.getValue()), 
+				Date.valueOf(dtpkrFechaFin.getValue())
+				);
+		Acces.establecerConexion();
+		int resultado= a.actualizarRegistro(Acces.getConexion());
+		Acces.cerrarConexion();
+		if(resultado == 1) {
+			listaH.set(tblViewHistorial.getSelectionModel().getSelectedIndex(),a);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("Registro Actualizado");
+			mensaje.setContentText("El registro se ha actualizado exitosamente");
+			mensaje.setHeaderText("Resultado");
+			mensaje.show();
+		}
 	}
 	
 	@FXML

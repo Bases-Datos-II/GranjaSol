@@ -92,7 +92,25 @@ public class Nutrientes{
 			return 0;
 		}
 	}
-	public void actualizarRegistro() {
+	public int actualizarRegistro(Connection connection) {
+		try {
+			PreparedStatement registro = connection.prepareStatement(
+					"UPDATE TBL_NUTRIENTES " + 
+					"SET " + 
+					"NOMBRE_NUTRIENTE = ? " + 
+					" ,TIPO_NUTRIENTE = ? " + 
+					"WHERE " + 
+					"CODIGO_NUTRIENTE = ?"
+					);
+			registro.setString(1, getNombreNutriente());
+			registro.setString(2, getTipoNutriente());
+			registro.setInt(3, getCodigoNutriente());
+			
+			return registro.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 		
 	}
 	public void eliminarRegistro() {

@@ -97,7 +97,27 @@ public class Alimentos{
 		}
 		
 	}
-	public void actualizarRegistro() {
+	public int actualizarRegistro(Connection connection) {
+		try {
+			PreparedStatement statement= connection.prepareStatement(
+					"UPDATE TBL_ALIMENTOS " + 
+					"SET " + 
+					" NOMBRE_ALIMENTO = ?" + 
+					" ,CALORIAS = ? " + 
+					"WHERE " + 
+					" CODIGO_ALIMENTO = ?"
+					);
+			statement.setString(1, getNombreAlimento());
+			statement.setInt(2, getCalorias());
+			statement.setInt(3, getCodigoAlimento());
+			
+			return statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 		
 	}
 	public void eliminarRegistro() {
