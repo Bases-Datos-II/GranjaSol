@@ -59,7 +59,7 @@
                      <children>
                         <Label text="Alimentos" />
                         <ComboBox fx:id="cmbAlimentos" disable="true" prefWidth="150.0" GridPane.columnIndex="1" />
-                        <Button fx:id="btnAgregar" disable="true" mnemonicParsing="false" onAction="#HabilitarAgregar" text="Agregar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="btnAgregar" disable="true" mnemonicParsing="false" onAction="#guardaralimdieta" text="Agregar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane layoutX="13.0" layoutY="286.0" prefHeight="55.0" prefWidth="308.0">

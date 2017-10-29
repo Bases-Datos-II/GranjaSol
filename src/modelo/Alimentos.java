@@ -1,5 +1,6 @@
 package modelo;
 
+//import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +53,8 @@ public class Alimentos{
 	public IntegerProperty CaloriasProperty() {
 		return calorias;
 	}
+
+
 	public static void CargarAlimentos(Connection connection, ObservableList<Alimentos> lista )
 	{
 		try {
@@ -69,13 +72,13 @@ public class Alimentos{
 					                  )
 				          );
 			}
-		} 
+		}
 		catch (SQLException e) {
-		
+
 			e.printStackTrace();
 		}
 	}
-	//Funcionalidad de Formulario
+
 	public void guardarRegisto() {
 		
 	}
@@ -86,10 +89,11 @@ public class Alimentos{
 		
 	}
 	
+
 	@Override
 	public String toString()
 	{
 		return nombreAlimento.get();
 	}
-	
+
 }
