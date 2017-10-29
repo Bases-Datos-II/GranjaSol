@@ -46,9 +46,9 @@
                            </GridPane.margin>
                         </Label>
                         <ComboBox fx:id="cmbNutrientes" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" />
+                        <TextField fx:id="txtCalorias" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtCodAlimento" GridPane.columnIndex="1" />
                         <Button mnemonicParsing="false" text="Agregar Nutriente" GridPane.columnIndex="2" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -94,10 +94,10 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="189.0" prefWidth="304.0">
                            <children>
-                              <TableView layoutX="25.0" prefHeight="189.0" prefWidth="338.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="tblViewNutrientes" layoutX="25.0" prefHeight="189.0" prefWidth="338.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="163.0" text="Nutriente" />
-                                  <TableColumn prefWidth="118.0" text="Tipo Nutriente" />
+                                  <TableColumn fx:id="clmnNombreN" prefWidth="163.0" text="Nutriente" />
+                                  <TableColumn fx:id="clmnTipoN" prefWidth="118.0" text="Tipo Nutriente" />
                                 </columns>
                               </TableView>
                            </children>

@@ -4,11 +4,14 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,7 +27,10 @@ public class FormHistorialController implements Initializable{
 	@FXML private TableColumn<Historial, Animal> clmCodAnimal;
 	@FXML private TableColumn<Historial, Date> clmFechaIni;
 	@FXML private TableColumn<Historial, Date> clmFechaFin;
-	//Listando componentes de la interfaz
+	//Listando componentes de la GUI
+	@FXML private DatePicker dtpkrFechaIni;
+	@FXML private DatePicker dtpkrFechaFin;
+	
 	@FXML private ComboBox<Animal> cmbCodAnimal;
 	@FXML private ComboBox<Dieta> cmbCodDieta;
 	@FXML private TableView<Historial> tblViewHistorial;
@@ -61,10 +67,28 @@ public class FormHistorialController implements Initializable{
 		clmCodAnimal.setCellValueFactory(new PropertyValueFactory<Historial, Animal>("codigoAnimal"));
 		clmFechaIni.setCellValueFactory(new PropertyValueFactory<Historial, Date>("fechaInicio"));
 		clmFechaFin.setCellValueFactory(new PropertyValueFactory<Historial, Date>("fechaFin"));
-		
+		gestionarEventos();
 		Acces.cerrarConexion();
 		
 		
+	}
+	
+	public void gestionarEventos() {
+		tblViewHistorial.getSelectionModel().selectedItemProperty().addListener(
+				new ChangeListener<Historial>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Historial> observable, Historial valorAnterior,
+							Historial valorSeleccionado) {
+						cmbCodAnimal.setValue(valorSeleccionado.getCodigoAnimal());;
+						cmbCodDieta.setValue(valorSeleccionado.getCodigoDieta());
+						dtpkrFechaIni.setValue(valorSeleccionado.getFechaInicio().toLocalDate());
+						dtpkrFechaFin.setValue(valorSeleccionado.getFechaFin().toLocalDate());
+						
+					}
+					
+		}
+				);
 	}
 	
 

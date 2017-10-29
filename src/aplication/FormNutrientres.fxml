@@ -50,9 +50,9 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="78.0" GridPane.columnIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtCodNutriente" prefHeight="25.0" prefWidth="78.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtTipo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <HBox alignment="CENTER" layoutX="14.0" layoutY="104.0" prefHeight="45.0" prefWidth="352.0">
