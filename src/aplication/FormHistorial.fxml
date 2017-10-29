@@ -32,7 +32,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnGuardar" mnemonicParsing="false" text="Guardar Registro">
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarRegistro" text="Guardar Registro">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

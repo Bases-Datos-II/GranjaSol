@@ -50,7 +50,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="txtCodNutriente" prefHeight="25.0" prefWidth="78.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtCodNutriente" disable="true" prefHeight="25.0" prefWidth="78.0" GridPane.columnIndex="1" />
                         <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="txtTipo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
@@ -62,7 +62,7 @@
                               <Insets bottom="4.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnGuardar" mnemonicParsing="false" text="Agregar Nutriente">
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarRegistro" text="Agregar Nutriente">
                            <font>
                               <Font size="11.0" />
                            </font>

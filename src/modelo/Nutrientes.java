@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -75,8 +76,21 @@ public class Nutrientes{
 		}
 		
 	}
-	public void guardarRegisto() {
-		
+	public int guardarRegisto(Connection connection) {
+		try {
+			PreparedStatement registro= connection.prepareStatement(
+							"INSERT INTO TBL_NUTRIENTES (CODIGO_NUTRIENTE, NOMBRE_NUTRIENTE, TIPO_NUTRIENTE) "
+							+ "VALUES(S_NUTRIENTES.NEXTVAL, ? , ?)"
+					);
+			registro.setString(1, getNombreNutriente());
+			registro.setString(2, getTipoNutriente());
+			
+			return registro.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	public void actualizarRegistro() {
 		

@@ -2,6 +2,7 @@ package modelo;
 
 //import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -79,7 +80,21 @@ public class Alimentos{
 		}
 	}
 
-	public void guardarRegisto() {
+	public int guardarRegisto(Connection connection) {
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"INSERT INTO TBL_ALIMENTOS " + 
+					"(CODIGO_ALIMENTO, NOMBRE_ALIMENTO, CALORIAS " + 
+					") VALUES (S_ALIMENTOS.NEXTVAL, ?, ?)"
+					);
+			statement.setString(1, getNombreAlimento());
+			statement.setInt(2, getCalorias());
+			
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 		
 	}
 	public void actualizarRegistro() {

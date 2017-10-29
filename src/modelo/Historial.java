@@ -2,6 +2,7 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -64,6 +65,39 @@ Date fechaInicio, Date fechaFin) {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+	//Funcionalidad
+	public int guardarRegisto(Connection connection) {
+		try {
+			//Evitar inyeccion
+			PreparedStatement instruccion= connection.prepareStatement(
+					"INSERT INTO TBL_HISTORIAL " + 
+					"(CODIGO_HISTORIAL, "
+					+ "CODIGO_DIETA, "
+					+ "CODIGO_ANIMAL, "
+					+ "FECHA_INICIO, "
+					+ "FECHA_FIN)VALUES " + 
+					"(S_HISTORIAL.NEXTVAL, ?, ?, ?, ?)");
+			instruccion.setInt(1, codigoDieta.getCodigo());
+			instruccion.setString(2, codigoAnimal.getCodigoAnimal());
+			instruccion.setDate(3, fechaInicio);
+			instruccion.setDate(4, fechaFin);
+			
+			return instruccion.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		} 
+		
+	}
+	public void actualizarRegistro() {
+		
+	}
+	public void eliminarRegistro() {
+		
+	}
+	//Llenado de Informacion
 	public static void llenarInformacion(Connection connection, ObservableList<Historial> listaH) {
 		try {
 			Statement instruccion = connection.createStatement();

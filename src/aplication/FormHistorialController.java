@@ -10,6 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -99,6 +101,31 @@ public class FormHistorialController implements Initializable{
 		}
 				);
 	}
+	@FXML
+	public void guardarRegistro() {
+		//Crear una nueva instancia del tipo Historial
+		Historial a= new Historial(
+				0, 
+				cmbCodDieta.getSelectionModel().getSelectedItem(), 
+				cmbCodAnimal.getSelectionModel().getSelectedItem(), 
+				Date.valueOf(dtpkrFechaIni.getValue()), 
+				Date.valueOf(dtpkrFechaFin.getValue())
+				);
+		//Llamar al metodo guardar registro de la clase Historial
+		Acces.establecerConexion();
+		int resultado = a.guardarRegisto(Acces.getConexion());
+		Acces.cerrarConexion();
+		if(resultado == 1) {
+			listaH.add(a);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("Registro Agregado");
+			mensaje.setContentText("El registro ha sido agregado exitosamente");
+			mensaje.setHeaderText("Resultado");
+			mensaje.show();
+		}
+		
+	}
+	
 	@FXML
 	public void limpiarComponentes() {
 		cmbCodAnimal.setValue(null);

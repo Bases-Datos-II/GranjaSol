@@ -9,11 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import modelo.Alimentos;
 import modelo.Nutrientes;
 import utilidades.conexion;
 
@@ -58,6 +61,30 @@ public class FormNutrientesController implements Initializable{
 		//Siempre CIERRA LA CONEXION
 		Acces.cerrarConexion();
 	}
+	
+	@FXML
+	public void guardarRegistro() {
+		//Crear una nueva instancia del tipo Historial
+		Nutrientes a= new Nutrientes(
+				0, 
+				txtNombre.getText(), 
+				txtTipo.getText() 
+				);
+		//Llamar al metodo guardar registro de la clase Historial
+		Acces.establecerConexion();
+		int resultado = a.guardarRegisto(Acces.getConexion());
+		Acces.cerrarConexion();
+		if(resultado == 1) {
+			listaN.add(a);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("Registro Agregado");
+			mensaje.setContentText("El registro ha sido agregado exitosamente");
+			mensaje.setHeaderText("Resultado");
+			mensaje.show();
+		}
+		
+	}
+	
 	public void gestionarEventos() {
 		tblViewNutrientes.getSelectionModel().selectedItemProperty().addListener(
 				new ChangeListener<Nutrientes>() {

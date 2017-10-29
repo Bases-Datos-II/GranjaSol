@@ -1,6 +1,7 @@
 package aplication;
 
 import java.net.URL;
+//import java.sql.Date;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -9,13 +10,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.Alimentos;
+//import modelo.Historial;
 import modelo.Nutrientes;
 import utilidades.conexion;
 
@@ -84,6 +88,7 @@ public class FormAlimentosController implements Initializable{
 						txtCodAlimento.setText(String.valueOf(valorSeleccionado.getCodigoAlimento()));
 						txtNombre.setText(valorSeleccionado.getNombreAlimento());
 						txtCalorias.setText(String.valueOf(valorSeleccionado.getCalorias()));
+						verNutrientes();
 						
 						btnAgregar.setDisable(true);
 						btnActualizar.setDisable(false);
@@ -91,6 +96,33 @@ public class FormAlimentosController implements Initializable{
 					}
 		});
 	}
+	public void verNutrientes() {
+		
+	}
+	
+	@FXML
+	public void guardarRegistro() {
+		//Crear una nueva instancia del tipo Historial
+		Alimentos a= new Alimentos(
+				0, 
+				txtNombre.getText(), 
+				Integer.valueOf(txtCalorias.getText()) 
+				);
+		//Llamar al metodo guardar registro de la clase Historial
+		Acceso.establecerConexion();
+		int resultado = a.guardarRegisto(Acceso.getConexion());
+		Acceso.cerrarConexion();
+		if(resultado == 1) {
+			listaAlimentos.add(a);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("Registro Agregado");
+			mensaje.setContentText("El registro ha sido agregado exitosamente");
+			mensaje.setHeaderText("Resultado");
+			mensaje.show();
+		}
+		
+	}
+	
 	@FXML
 	public void limpiarComponentes() {
 		txtCodAlimento.setText(null);

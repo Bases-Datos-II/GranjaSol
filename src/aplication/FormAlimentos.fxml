@@ -48,7 +48,7 @@
                         <ComboBox fx:id="cmbNutrientes" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="txtCalorias" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtCodAlimento" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtCodAlimento" disable="true" GridPane.columnIndex="1" />
                         <Button mnemonicParsing="false" text="Agregar Nutriente" GridPane.columnIndex="2" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -63,7 +63,7 @@
                               <Insets bottom="5.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnAgregar" mnemonicParsing="false" text="Agregar Alimento">
+                        <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#guardarRegistro" text="Agregar Alimento">
                            <HBox.margin>
                               <Insets bottom="5.0" right="10.0" />
                            </HBox.margin>
