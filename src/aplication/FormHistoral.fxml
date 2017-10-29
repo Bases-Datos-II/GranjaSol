@@ -25,19 +25,24 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <HBox layoutX="132.0" layoutY="119.0" prefHeight="33.0" prefWidth="341.0">
+                  <HBox layoutX="69.0" layoutY="119.0" prefHeight="33.0" prefWidth="471.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Nuevo Registro">
+                        <Button fx:id="btnNuevo" mnemonicParsing="false" text="Nuevo Registro">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Corregir Registro">
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" text="Guardar Registro">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Eliminar Registro">
+                        <Button fx:id="btnActualizar" mnemonicParsing="false" text="Actualizar Registro">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnEliminar" mnemonicParsing="false" text="Eliminar Registro">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

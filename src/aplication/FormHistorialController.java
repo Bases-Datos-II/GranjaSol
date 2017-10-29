@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -30,6 +31,10 @@ public class FormHistorialController implements Initializable{
 	//Listando componentes de la GUI
 	@FXML private DatePicker dtpkrFechaIni;
 	@FXML private DatePicker dtpkrFechaFin;
+	@FXML private Button btnNuevo;
+	@FXML private Button btnGuardar;
+	@FXML private Button btnActualizar;
+	@FXML private Button btnEliminar;
 	
 	@FXML private ComboBox<Animal> cmbCodAnimal;
 	@FXML private ComboBox<Dieta> cmbCodDieta;
