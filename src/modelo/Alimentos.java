@@ -56,11 +56,10 @@ public class Alimentos{
 	{
 		try {
 			Statement statement = connection.createStatement();
-			ResultSet resultado = statement.executeQuery
-					("select CODIGO_ALIMENTO, "
-							+ "NOMBRE_ALIMENTO, "
-							+ "CALORIAS "
-							+ "from TBL_ALIMENTOS");
+			ResultSet resultado = statement.executeQuery(
+					"SELECT CODIGO_ALIMENTO, "
+					+ "NOMBRE_ALIMENTO, "
+					+ "CALORIAS FROM TBL_ALIMENTOS");
 			while(resultado.next())
 			{
 				lista.add(new Alimentos(

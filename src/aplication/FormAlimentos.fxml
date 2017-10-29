@@ -83,11 +83,11 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="189.0" prefWidth="332.0">
                            <children>
-                              <TableView layoutX="-6.0" layoutY="-9.0" prefHeight="189.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="tblViewAlimentos" layoutX="-6.0" layoutY="-9.0" prefHeight="189.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="101.0" text="Cod_ Alimento" />
-                                  <TableColumn prefWidth="122.0" text="Nombre Alimento" />
-                                    <TableColumn prefWidth="72.0" text="CALORIAS" />
+                                  <TableColumn fx:id="clmnCodigo" prefWidth="101.0" text="Cod_ Alimento" />
+                                  <TableColumn fx:id="clmnNombre" prefWidth="122.0" text="Nombre Alimento" />
+                                    <TableColumn fx:id="clmnCalorias" prefWidth="72.0" text="CALORIAS" />
                                 </columns>
                               </TableView>
                            </children>

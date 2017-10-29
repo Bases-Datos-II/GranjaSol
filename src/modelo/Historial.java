@@ -64,65 +64,71 @@ Date fechaInicio, Date fechaFin) {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	public static void llenarInformacion(Connection connection, ObservableList<Animal> listaA, ObservableList<Dieta> listaD) {
+	public static void llenarInformacion(Connection connection, ObservableList<Historial> listaH) {
 		try {
-			Statement statementA= connection.createStatement();
-			Statement statementD= connection.createStatement();
-			ResultSet resultadoA= statementA.executeQuery(
-					"SELECT A.CODIGO_ANIMAL, "
-					+ "A.CODIGO_ESPECIE, "
-					+ "A.FECHA_NACIMIENTO, "
-					+ "A.SEXO, "
-					+ "A.NECESIDAD_NUTRI, "
-					+ "A.COSTE_ANIMAL, " 
-					+ "B.CODIGO_TIPO_ANIMAL, "
-					+ "B.NOMBRE_ESPECIE, "
-					+ "B.CARACTERISTICA, "
-					+ "B.USO, " 
-					+ "C.NOMBRE_TIPO " 
-					+ "  FROM TBL_ANIMAL A " 
-					+ "INNER JOIN TBL_ESPECIE_ANIMAL B ON A.CODIGO_ESPECIE = B.CODIGO_ESPECIE " 
-					+ "INNER JOIN TBL_TIPO_ANIMAL C ON B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL"
-			);
-			ResultSet resultadoD= statementD.executeQuery(
-					"SELECT CODIGO_DIETA, "
-					+ "NOMBRE_DIETA, "
-					+ "FECHA_CREACION, "
-					+ "PORCIONES, "
-					+ "RECOMENDACIONES, "
-					+ "CANTIDAD_NUTRIENTES "
-					+ "FROM TBL_DIETA "
-			);
-			while(resultadoA.next()) {
-				listaA.add(
-						new Animal(
-								resultadoA.getString("CODIGO_ANIMAL"), 
-								new EspecieAnimal(
-										resultadoA.getInt("CODIGO_ESPECIE"), 
-										new TipoAnimal(
-												resultadoA.getInt("CODIGO_TIPO_ANIMAL"), 
-												resultadoA.getString("NOMBRE_TIPO")
+			Statement instruccion = connection.createStatement();
+			ResultSet resultado = instruccion.executeQuery(
+					"SELECT A.CODIGO_HISTORIAL, "
+					+ "A.CODIGO_DIETA, "
+					+ "A.CODIGO_ANIMAL, "
+					+ "A.FECHA_INICIO, "
+					+ "A.FECHA_FIN, " 
+					+ "B.NOMBRE_DIETA, "
+					+ "B.FECHA_CREACION, "
+					+ "B.PORCIONES, "
+					+ "B.RECOMENDACIONES, "
+					+ "B.CANTIDAD_NUTRIENTES, " 
+					+ "C.CODIGO_ESPECIE, "
+					+ "C.FECHA_NACIMIENTO, "
+					+ "C.SEXO, "
+					+ "C.NECESIDAD_NUTRI, "
+					+ "C.COSTE_ANIMAL, " 
+					+ "D.CODIGO_TIPO_ANIMAL, "
+					+ "D.NOMBRE_ESPECIE, "
+					+ "D.CARACTERISTICA, "
+					+ "D.USO, " 
+					+ "E.NOMBRE_TIPO " 
+					+ "FROM TBL_HISTORIAL A " 
+					+ "INNER JOIN TBL_DIETA B "
+					+ "ON A.CODIGO_DIETA = B.CODIGO_DIETA " 
+					+ "INNER JOIN TBL_ANIMAL C "
+					+ "ON A.CODIGO_ANIMAL = C.CODIGO_ANIMAL " 
+					+ "INNER JOIN TBL_ESPECIE_ANIMAL D "
+					+ "ON C.CODIGO_ESPECIE = D.CODIGO_ESPECIE " 
+					+ "INNER JOIN TBL_TIPO_ANIMAL E "
+					+ "ON D.CODIGO_TIPO_ANIMAL = E.CODIGO_TIPO_ANIMAL"
+					);
+			while(resultado.next()) {
+				listaH.add(
+						new Historial(
+								resultado.getInt("CODIGO_HISTORIAL"), 
+								new Dieta(
+										resultado.getInt("CODIGO_DIETA"), 
+										resultado.getString("NOMBRE_DIETA"), 
+										resultado.getDate("FECHA_CREACION"), 
+										resultado.getInt("PORCIONES"), 
+										resultado.getString("RECOMENDACIONES"), 
+										resultado.getInt("CANTIDAD_NUTRIENTES")
+										), 
+								new Animal(
+										resultado.getString("CODIGO_ANIMAL"), 
+										new EspecieAnimal(
+												resultado.getInt("CODIGO_ESPECIE"), 
+												new TipoAnimal(
+														resultado.getInt("CODIGO_TIPO_ANIMAL"), 
+														resultado.getString("NOMBRE_TIPO")
+														), 
+												resultado.getString("NOMBRE_ESPECIE"), 
+												resultado.getString("CARACTERISTICA"), 
+												resultado.getString("USO")
 												), 
-										resultadoA.getString("NOMBRE_ESPECIE"), 
-										resultadoA.getString("CARACTERISTICA"), 
-										resultadoA.getString("USO")
-								), 
-								resultadoA.getDate("FECHA_NACIMIENTO"), 
-								resultadoA.getString("SEXO"), 
-								resultadoA.getInt("NECESIDAD_NUTRI"), 
-								resultadoA.getInt("COSTE_ANIMAL"))
-						);
-			}
-			while(resultadoD.next()) {
-				listaD.add(
-						new Dieta(
-						resultadoD.getInt("CODIGO_DIETA"),
-						resultadoD.getString("NOMBRE_DIETA"),
-						resultadoD.getDate("FECHA_CREACION"),
-						resultadoD.getInt("PORCIONES"),
-						resultadoD.getString("RECOMENDACIONES"),
-						resultadoD.getInt("CANTIDAD_NUTRIENTES")
-						)
+										resultado.getDate("FECHA_NACIMIENTO"), 
+										resultado.getString("SEXO"), 
+										resultado.getInt("NECESIDAD_NUTRI"), 
+										resultado.getInt("COSTE_ANIMAL")
+										), 
+								resultado.getDate("FECHA_INICIO"), 
+								resultado.getDate("FECHA_FIN"))
 						);
 			}
 		} catch (SQLException e) {
