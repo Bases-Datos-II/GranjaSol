@@ -2,6 +2,8 @@ package aplication;
 
 import java.net.URL;
 import java.sql.Date;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -20,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.Alimentos;
+import modelo.AlimentosPorDieta;
 import modelo.Animal;
 import modelo.Dieta;
 import utilidades.conexion;
@@ -54,6 +57,7 @@ public class FormDietaController implements Initializable {
 	private ObservableList<Dieta> listDieta;
 
 	private conexion Conexion;
+	private Dieta D;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
@@ -89,11 +93,33 @@ public class FormDietaController implements Initializable {
 		Conexion.cerrarConexion();
 	}
 
-
 	@FXML
+    public void guardaralimdieta()
+    {
+		Conexion.establecerConexion();
+		Dieta D = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
+		AlimentosPorDieta A = new AlimentosPorDieta(D,cmbAlimentos.getSelectionModel().getSelectedItem());
+		Conexion.cerrarConexion();
+		cmbAlimentos.getItems().remove(cmbAlimentos.getSelectionModel().getSelectedIndex());
+
+		Conexion.establecerConexion();
+		int result = A.Guardaralimentopordieta(Conexion.getConexion());
+		Conexion.cerrarConexion();
+		if(result == 1)
+		{
+			//listDieta.add(D);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("REGISTRO INGRESADO");
+			mensaje.setContentText("REGISTRO INGRESADO EXITOSAMENTE");
+			mensaje.setHeaderText("RESULTADO");
+			mensaje.show();
+		}
+    }
+
+		@FXML
 	public void guardarregistro()
 	{
-		Dieta D = new Dieta(0,txtNombre.getText(),
+		this.D = new Dieta(0,txtNombre.getText(),
 				            Date.valueOf(dpkrFecha.getValue()),
 				            Integer.valueOf(txtPorciones.getText()),
 				            txtDescripcion.getText(),0);
@@ -103,7 +129,7 @@ public class FormDietaController implements Initializable {
 		Conexion.cerrarConexion();
 		if(resultado == 1)
 		{
-			listDieta.add(D);
+			//listDieta.add(D);
 			Alert mensaje = new Alert(AlertType.INFORMATION);
 			mensaje.setTitle("REGISTRO INGRESADO");
 			mensaje.setContentText("REGISTRO INGRESADO EXITOSAMENTE");
@@ -156,7 +182,7 @@ public class FormDietaController implements Initializable {
 		dpkrFecha.setValue(null);
 		txtCalorias.setText(null);
 		btnNuevo.setDisable(true);
-
+		tvDieta.setDisable(true);
 	}
 
 	@FXML

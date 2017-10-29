@@ -140,7 +140,9 @@ String sexo, int necesidadNutri, int coste) {
 		}catch( Exception a){
 			System.out.println("llenar animal"+a);
 		}
-
-
+	}
+	public static void filtroanimal(Connection connection, ObservableList<Animal> listAnimal)
+	{
+		
 	}
 }

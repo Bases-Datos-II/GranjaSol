@@ -1,8 +1,8 @@
 package modelo;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -105,15 +105,8 @@ public class Dieta
 	{
 		try
 		{
-			PreparedStatement instruccion = connection.prepareStatement
-					                                   ("INSERT INTO tbl_dieta (codigo_dieta, "
-					                                                         + "nombre_dieta, "
-					                                                         + "fecha_creacion, "
-					                                                         + "porciones, "
-					                                                         + "recomendaciones, "
-					                                                         + "cantidad_nutrientes) "
-					                                                         + "VALUES "
-					                                                         + "(S_DIETA.NEXTVAL,?,?,?,?,'')");
+			//PreparedStatement instruccion = connection.prepareStatement("EXEC SP_INSERDIETA(?,?,?,?)");
+			CallableStatement instruccion = connection.prepareCall("{call SP_INSERDIETA(?,?,?,?)}");
 			instruccion.setString(1, nombre.get());
 			instruccion.setDate(2, fechacreacion);
 			instruccion.setInt(3, porciones.get());
