@@ -11,13 +11,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	@FXML private Button btnboton;
-	@FXML Scene animales;
+
 	@Override
 	public void start(Stage primaryStage) {
 
 		try {
+
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("FormInicial.fxml"));
+
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -32,6 +33,7 @@ public class Main extends Application {
 	}
 
 	//NUEVOOOOOOOOOoooooooooooo
+	//NUEVOOOOOOOOOooooooooooooOOOOOO
 	public static void main(String[] args) {
 		launch(args);
 	}

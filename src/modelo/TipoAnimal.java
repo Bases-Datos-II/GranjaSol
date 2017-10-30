@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,88 +42,48 @@ public class TipoAnimal{
 		return nombreTipo;
 	}
 
-	public static void llenarTipoAnimal(Connection connection, ObservableList<TipoAnimal> listaTipAn, int familia){
-		if (familia == 0){
+
+	public static void otroTipoAnimal(Connection connection, ObservableList<TipoAnimal> listaTipAn, String familia){
+
 		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultado = statement.executeQuery("SELECT "
-					+ "CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL "
-					+ "WHERE CODIGO_TIPO_ANIMAL = 1 "
-					+ "OR CODIGO_TIPO_ANIMAL = 2 ");
+			String consulta = "select "
+					+ "DISTINCT B.NOMBRE_TIPO, "
+					+ "B.CODIGO_TIPO_ANIMAL, "
+					+ "A.CARACTERISTICA "
+					+ "from TBL_ESPECIE_ANIMAL A "
+					+ "INNER JOIN TBL_TIPO_ANIMAL B "
+					+ "ON(A.CODIGO_TIPO_ANIMAL = "
+					+ "B.CODIGO_TIPO_ANIMAL) "
+					+ "WHERE A.CARACTERISTICA = ? ";
+
+			PreparedStatement sentencia = connection.prepareStatement(consulta);
+			sentencia.setString(1, familia);
+			ResultSet resultado = sentencia.executeQuery();
 
 			while(resultado.next()){
-				listaTipAn.add(
-						new TipoAnimal(
-								resultado.getInt("CODIGO_TIPO_ANIMAL"),
-						resultado.getString("NOMBRE_TIPO")
+				listaTipAn.add(new
+					TipoAnimal(
+							resultado.getInt("CODIGO_TIPO_ANIMAL"),
+							resultado.getString("NOMBRE_TIPO")
 						)
 					);
-
 		}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		}
-
-		if(familia == 1) {
-			try {
-				Statement statement = connection.createStatement();
-				ResultSet resultado = statement.executeQuery("SELECT CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL WHERE CODIGO_TIPO_ANIMAL = 3 or "
-				+"CODIGO_TIPO_ANIMAL = 4 or "
-				+"CODIGO_TIPO_ANIMAL = 7 or "
-				+"CODIGO_TIPO_ANIMAL = 8 or "
-				+"CODIGO_TIPO_ANIMAL = 9 or "
-				+"CODIGO_TIPO_ANIMAL = 5 OR "
-				+"CODIGO_TIPO_ANIMAL = 6");
-
-				while(resultado.next()){
-					listaTipAn.add(
-							new TipoAnimal(
-									resultado.getInt("CODIGO_TIPO_ANIMAL"),
-							resultado.getString("NOMBRE_TIPO")
-							)
-						);
-
-			}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		}catch( Exception a){
+			System.out.println("llenar animal"+a);
 		}
 
-		if(familia == 2) {
-			try {
-				Statement statement = connection.createStatement();
-				ResultSet resultado = statement.executeQuery("SELECT CODIGO_TIPO_ANIMAL, NOMBRE_TIPO FROM TBL_TIPO_ANIMAL WHERE "
-				+"CODIGO_TIPO_ANIMAL = 10 or "
-				+"CODIGO_TIPO_ANIMAL = 11 or "
-				+"CODIGO_TIPO_ANIMAL = 12 or "
-				+"CODIGO_TIPO_ANIMAL = 13 or "
-				+"CODIGO_TIPO_ANIMAL = 14 OR "
-				+"CODIGO_TIPO_ANIMAL = 15");
 
-				while(resultado.next()){
-					listaTipAn.add(
-							new TipoAnimal(
-									resultado.getInt("CODIGO_TIPO_ANIMAL"),
-							resultado.getString("NOMBRE_TIPO")
-							)
-						);
 
-			}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 
 	}
-
-
-
 	@Override
 	public String toString(){
 		return nombreTipo.get();
 	}
+
+
 }

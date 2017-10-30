@@ -1,5 +1,8 @@
-/aplication/
 /modelo/
 /utilidades/
+<<<<<<< HEAD
 /FormLogin.fxml
 /FormLoginController.class
+=======
+/aplication/
+>>>>>>> origin/master

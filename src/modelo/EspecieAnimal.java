@@ -76,179 +76,24 @@ String caracteristica, String uso) {
 		return uso;
 	}
 
-	public static void llenarEspecieAnimal(Connection connection, ObservableList<EspecieAnimal> listaEspAn, int familia,String tipoAnimal){
-		System.out.println("Buscando Raza");
-		/*if (familia == 1)
-		{
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultado = statement.executeQuery("SELECT A.CODIGO_ESPECIE,"
-					+ "A.CODIGO_TIPO_ANIMAL, "
-					+ "A.NOMBRE_ESPECIE, "
-					+ "A.CARACTERISTICA, "
-					+ "A.USO, "
-					+ "B.NOMBRE_TIPO "
-					+ "FROM TBL_ESPECIE_ANIMAL A "
-					+ "INNER JOIN TBL_TIPO_ANIMAL B "
-					+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL)"
-					+ "WHERE A.CARACTERISTICA = 'BOVINO'  AND B.NOMBRE_TIPO = '"+tipoAnimal+"'");
-
-			while(resultado.next()){
-				listaEspAn.add(new EspecieAnimal
-						(resultado.getInt("CODIGO_ESPECIE"),
-						new TipoAnimal(
-								resultado.getInt("CODIGO_TIPO_ANIMAL"),
-								resultado.getString("NOMBRE_TIPO")
-								),
-						resultado.getString("NOMBRE_ESPECIE"),
-						resultado.getString("CARACTERISTICA"),
-						resultado.getString("USO")
-						)
-					);
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-	}*/
-
-		 if (familia == 0)
-		    {
-		    try {
-		    	String consulta = "SELECT A.CODIGO_ESPECIE, "
-		    			+ "A.CODIGO_TIPO_ANIMAL, "
-		    			+ "A.NOMBRE_ESPECIE, "
-		    			+ "A.CARACTERISTICA, "
-		    			+ "A.USO, B.NOMBRE_TIPO "
-		    			+ "FROM TBL_ESPECIE_ANIMAL A "
-		    			+ "INNER JOIN TBL_TIPO_ANIMAL B "
-		    			+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
-		    			+ "WHERE A.CARACTERISTICA = 'BOVINO' AND "
-		    			+ "B.NOMBRE_TIPO = ? ";
-		    	PreparedStatement sentencia = connection.prepareStatement(consulta);
-		    	sentencia.setString(1, tipoAnimal);
-		    	/*sentencia.executeQuery(consulta)*/;
-		    	/*
-		      sentencia = connection.prepareStatement(consulta);
-		      */
-		       ResultSet resultado = sentencia.executeQuery();
-
-		      while(resultado.next()){
-		        listaEspAn.add(new EspecieAnimal
-		            (resultado.getInt("CODIGO_ESPECIE"),
-		            new TipoAnimal(
-		                resultado.getInt("CODIGO_TIPO_ANIMAL"),
-		                resultado.getString("NOMBRE_TIPO")
-		                ),
-		            resultado.getString("NOMBRE_ESPECIE"),
-		            resultado.getString("CARACTERISTICA"),
-		            resultado.getString("USO")
-		            )
-		          );
-		      }
-		    } catch (SQLException e) {
-
-		     System.out.println("Erro e llenar espacie animal "+ e);
-		    }
-		  }
-
-		 if (familia == 1)
-		    {
-		    try {
-		    	String consulta = "SELECT A.CODIGO_ESPECIE, "
-		    			+ "A.CODIGO_TIPO_ANIMAL, "
-		    			+ "A.NOMBRE_ESPECIE, "
-		    			+ "A.CARACTERISTICA, "
-		    			+ "A.USO, B.NOMBRE_TIPO "
-		    			+ "FROM TBL_ESPECIE_ANIMAL A "
-		    			+ "INNER JOIN TBL_TIPO_ANIMAL B "
-		    			+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
-		    			+ "WHERE A.CARACTERISTICA = 'AVE' AND "
-		    			+ "B.NOMBRE_TIPO = ? ";
-		    	PreparedStatement sentencia = connection.prepareStatement(consulta);
-		    	sentencia.setString(1, tipoAnimal);
-		    	/*sentencia.executeQuery(consulta)*/;
-		    	/*
-		      sentencia = connection.prepareStatement(consulta);
-		      */
-		       ResultSet resultado = sentencia.executeQuery();
-
-		      while(resultado.next()){
-		        listaEspAn.add(new EspecieAnimal
-		            (resultado.getInt("CODIGO_ESPECIE"),
-		            new TipoAnimal(
-		                resultado.getInt("CODIGO_TIPO_ANIMAL"),
-		                resultado.getString("NOMBRE_TIPO")
-		                ),
-		            resultado.getString("NOMBRE_ESPECIE"),
-		            resultado.getString("CARACTERISTICA"),
-		            resultado.getString("USO")
-		            )
-		          );
-		      }
-		    } catch (SQLException e) {
-
-		     System.out.println("Erro e llenar espacie animal "+ e);
-		    }
-		  }
-
-		 if (familia == 2)
-		    {
-		    try {
-		    	String consulta = "SELECT A.CODIGO_ESPECIE, "
-		    			+ "A.CODIGO_TIPO_ANIMAL, "
-		    			+ "A.NOMBRE_ESPECIE, "
-		    			+ "A.CARACTERISTICA, "
-		    			+ "A.USO, B.NOMBRE_TIPO "
-		    			+ "FROM TBL_ESPECIE_ANIMAL A "
-		    			+ "INNER JOIN TBL_TIPO_ANIMAL B "
-		    			+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
-		    			+ "WHERE A.CARACTERISTICA = 'RUMIANTE' AND "
-		    			+ "B.NOMBRE_TIPO = ? ";
-		    	PreparedStatement sentencia = connection.prepareStatement(consulta);
-		    	sentencia.setString(1, tipoAnimal);
-		    	/*sentencia.executeQuery(consulta)*/;
-		    	/*
-		      sentencia = connection.prepareStatement(consulta);
-		      */
-		       ResultSet resultado = sentencia.executeQuery();
-
-		      while(resultado.next()){
-		        listaEspAn.add(new EspecieAnimal
-		            (resultado.getInt("CODIGO_ESPECIE"),
-		            new TipoAnimal(
-		                resultado.getInt("CODIGO_TIPO_ANIMAL"),
-		                resultado.getString("NOMBRE_TIPO")
-		                ),
-		            resultado.getString("NOMBRE_ESPECIE"),
-		            resultado.getString("CARACTERISTICA"),
-		            resultado.getString("USO")
-		            )
-		          );
-		      }
-		    } catch (SQLException e) {
-
-		     System.out.println("Erro e llenar espacie animal "+ e);
-		    }
-		  }
-
-
-	}
-
-	public static void llenarEspecieAnimal(Connection connection, ObservableList<EspecieAnimal> listaEspAn)
+	public static void llenarEspecieAnimal(Connection connection, ObservableList<EspecieAnimal> listaEspAn, String familia, String tipo)
 	{
 			try {
-				String consulta = "SELECT A.CODIGO_ANIMAL,A.CODIGO_ESPECIE, B.CODIGO_TIPO_ANIMAL, "
-						+ "C.NOMBRE_TIPO,B.NOMBRE_ESPECIE,B.CARACTERISTICA,B.USO, "
-						+ "A.FECHA_NACIMIENTO, "
-						+ "A.SEXO, A.NECESIDAD_NUTRI, A.COSTE_ANIMAL "
-						+ "FROM TBL_ANIMAL A "
-						+ "INNER JOIN TBL_ESPECIE_ANIMAL B "
-						+ "ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
-						+ "INNER JOIN TBL_TIPO_ANIMAL C "
-						+ "ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL)";
-				Statement instruccion = connection.createStatement();
-				ResultSet resultado = instruccion.executeQuery(consulta);
+				String consulta = "SELECT "
+						+ "A.CODIGO_ESPECIE, "
+						+ "A.CODIGO_TIPO_ANIMAL, "
+						+ "A.NOMBRE_ESPECIE, "
+						+ "A.CARACTERISTICA, "
+						+ "A.USO, "
+						+ "B.NOMBRE_TIPO "
+						+ "FROM TBL_ESPECIE_ANIMAL A "
+						+ "INNER JOIN TBL_TIPO_ANIMAL B "
+						+ "ON(A.CODIGO_TIPO_ANIMAL = B.CODIGO_TIPO_ANIMAL) "
+						+ "WHERE A.CARACTERISTICA = ? AND B.NOMBRE_TIPO = ?";
+				PreparedStatement sentencia = connection.prepareStatement(consulta);
+		    	sentencia.setString(1, familia);
+		    	sentencia.setString(2, tipo);
+		    	ResultSet resultado = sentencia.executeQuery();
 
 				while(resultado.next())
 				{
@@ -267,10 +112,64 @@ String caracteristica, String uso) {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}catch( Exception a){
+				System.out.println("llenar animal"+a);
 			}
 		}
 	@Override
 	public String toString(){
 		return nombreEspecie.get();
 	}
+
+
+
+	public static void llenartblvtipAnimal(Connection connection, ObservableList<EspecieAnimal> listaAnimal,String codigoAnimal)
+	{
+
+		System.out.println(codigoAnimal);
+		try {
+
+			String consulta = "SELECT  A.CODIGO_ANIMAL, "
+					+ "A.CODIGO_ESPECIE, "
+					+ "B.CODIGO_TIPO_ANIMAL, "
+					+ "C.NOMBRE_TIPO, "
+					+ "B.NOMBRE_ESPECIE, "
+					+ "B.CARACTERISTICA, "
+					+ "B.USO, "
+					+ "A.FECHA_NACIMIENTO, "
+					+ "A.SEXO, "
+					+ "A.NECESIDAD_NUTRI, "
+					+ "A.COSTE_ANIMAL, "
+					+ "C.NOMBRE_TIPO "
+					+ "FROM TBL_ANIMAL A "
+					+ "INNER JOIN TBL_ESPECIE_ANIMAL B "
+					+ "ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
+					+ "INNER JOIN TBL_TIPO_ANIMAL C "
+					+ "ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL) "
+					+ "WHERE A.CODIGO_ANIMAL = ?";
+			PreparedStatement sentencia = connection.prepareStatement(consulta);
+			sentencia.setString(1, codigoAnimal);
+			ResultSet resultado = sentencia.executeQuery();
+
+			while(resultado.next()){
+				listaAnimal.add(new EspecieAnimal
+			            (resultado.getInt("CODIGO_ESPECIE"),
+			            new TipoAnimal(
+			                resultado.getInt("CODIGO_TIPO_ANIMAL"),
+			                resultado.getString("NOMBRE_TIPO")
+			                ),
+			            resultado.getString("NOMBRE_ESPECIE"),
+			            resultado.getString("CARACTERISTICA"),
+			            resultado.getString("USO")
+			            )
+			          );
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch( Exception a){
+			System.out.println("llenar animal"+a);
+		}
+	}
+
 }
