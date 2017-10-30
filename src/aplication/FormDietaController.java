@@ -2,6 +2,8 @@ package aplication;
 
 import java.net.URL;
 import java.sql.Date;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -20,8 +22,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.Alimentos;
+import modelo.AlimentosPorDieta;
 import modelo.Animal;
 import modelo.Dieta;
+import modelo.Historial;
 import utilidades.conexion;
 
 public class FormDietaController implements Initializable {
@@ -38,15 +42,18 @@ public class FormDietaController implements Initializable {
 		@FXML private TextField txtPorciones;
 		@FXML private TextField txtDescripcion;
 		@FXML private DatePicker dpkrFecha;
+		@FXML private DatePicker dpkrFechaFinal;
 		@FXML private TextField txtCalorias;
 		@FXML private Button btnGuardar;
 		@FXML private Button btnAgregar;
 		@FXML private Button btnAsignar;
 		@FXML private Button btnNuevo;
+		@FXML private Button btnAnimal;
 
 		@FXML private ComboBox <Alimentos> cmbAlimentos;
 		@FXML private ComboBox <Animal> cmbAnimal;
 		@FXML private TableView <Dieta> tvDieta;
+
 
 	//colecciones
 	private ObservableList<Alimentos> listAlimentos;
@@ -54,6 +61,7 @@ public class FormDietaController implements Initializable {
 	private ObservableList<Dieta> listDieta;
 
 	private conexion Conexion;
+	private Dieta D;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
@@ -63,18 +71,17 @@ public class FormDietaController implements Initializable {
 
 		//Inicializar listas
 		listAlimentos = FXCollections.observableArrayList();
-		listAnimales = FXCollections.observableArrayList();
+
 		listDieta = FXCollections.observableArrayList();
 
 		//llenar listas
 		Alimentos.CargarAlimentos(Conexion.getConexion(), listAlimentos);
     	Dieta.CargarDietas(Conexion.getConexion(), listDieta);
-    	Animal.llenarAnimal(Conexion.getConexion(), listAnimales);
+
 
 		//enlazer combobox
 		cmbAlimentos.setItems(listAlimentos);
 		tvDieta.setItems(listDieta);
-		cmbAnimal.setItems(listAnimales);
 
 		//enlazar columnas
 		clmNombre.setCellValueFactory(new PropertyValueFactory<Dieta, String>("nombre"));
@@ -84,16 +91,55 @@ public class FormDietaController implements Initializable {
 		clmNutrientes.setCellValueFactory(new PropertyValueFactory<Dieta, Number>("cantidadnutrientes"));
 
 		GestionarEventos();
-
-
 		Conexion.cerrarConexion();
 	}
 
 
 	@FXML
+	public void habilitarAnimal()
+	{
+		Conexion = new conexion();
+		Conexion.establecerConexion();
+		listAnimales = FXCollections.observableArrayList();
+		Animal.filtroanimal(Conexion.getConexion(), listAnimales);
+		cmbAnimal.setItems(listAnimales);
+		Conexion.cerrarConexion();
+		cmbAlimentos.setDisable(true);
+		btnAgregar.setDisable(true);
+		cmbAnimal.setDisable(false);
+		btnAsignar.setDisable(false);
+		dpkrFechaFinal.setDisable(false);
+	}
+	@FXML
+    public void guardaralimdieta()
+    {
+		Conexion.establecerConexion();
+		Dieta D = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
+		AlimentosPorDieta A = new AlimentosPorDieta(D,cmbAlimentos.getSelectionModel().getSelectedItem());
+		Conexion.cerrarConexion();
+		cmbAlimentos.getItems().remove(cmbAlimentos.getSelectionModel().getSelectedIndex());
+
+		Conexion.establecerConexion();
+		int result = A.Guardaralimentopordieta(Conexion.getConexion());
+		Conexion.cerrarConexion();
+		if(result == 1)
+		{
+			//listDieta.add(D);
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("REGISTRO INGRESADO");
+			mensaje.setContentText("REGISTRO INGRESADO EXITOSAMENTE");
+			mensaje.setHeaderText("RESULTADO");
+			mensaje.show();
+		}
+		this.btnAnimal.setDisable(false);
+
+
+    }
+
+	@FXML
 	public void guardarregistro()
 	{
-		Dieta D = new Dieta(0,txtNombre.getText(),
+		this.D = new Dieta(0,txtNombre.getText(),
 				            Date.valueOf(dpkrFecha.getValue()),
 				            Integer.valueOf(txtPorciones.getText()),
 				            txtDescripcion.getText(),0);
@@ -103,7 +149,7 @@ public class FormDietaController implements Initializable {
 		Conexion.cerrarConexion();
 		if(resultado == 1)
 		{
-			listDieta.add(D);
+			//listDieta.add(D);
 			Alert mensaje = new Alert(AlertType.INFORMATION);
 			mensaje.setTitle("REGISTRO INGRESADO");
 			mensaje.setContentText("REGISTRO INGRESADO EXITOSAMENTE");
@@ -156,7 +202,7 @@ public class FormDietaController implements Initializable {
 		dpkrFecha.setValue(null);
 		txtCalorias.setText(null);
 		btnNuevo.setDisable(true);
-
+		tvDieta.setDisable(true);
 	}
 
 	@FXML
@@ -172,30 +218,39 @@ public class FormDietaController implements Initializable {
 		btnAgregar.setDisable(false);
 		cmbAlimentos.setDisable(false);
 	}
-
-	@FXML
-	public void HabilitarAgregar()
-	{
-		cmbAnimal.setDisable(false);
-		btnAsignar.setDisable(false);
-	}
-
 	@FXML
 	public void HabilitarAsignar()
 	{
-		txtNombre.setDisable(true);
-		txtPorciones.setDisable(true);
-		txtDescripcion.setDisable(true);
-		dpkrFecha.setDisable(true);
-		txtCalorias.setDisable(true);
-		btnGuardar.setDisable(true);
+		Conexion = new conexion();
+		Conexion.establecerConexion();
 
+		Dieta d = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
+		Historial H = new Historial(0,d,cmbAnimal.getSelectionModel().getSelectedItem(),
+				                    Date.valueOf(dpkrFecha.getValue()),
+				                    Date.valueOf(dpkrFechaFinal.getValue()));
+
+		int resultado =  H.h_Dieta_nueva(Conexion.getConexion());
+		Conexion.cerrarConexion();
+		if(resultado == 1)
+		{
+			Alert mensaje = new Alert(AlertType.INFORMATION);
+			mensaje.setTitle("REGISTRO INGRESADO");
+			mensaje.setContentText("REGISTRO INGRESADO EXITOSAMENTE");
+			mensaje.setHeaderText("RESULTADO");
+			mensaje.show();
+		}
+
+		Conexion.establecerConexion();
+		Dieta ds = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
+		Conexion.cerrarConexion();
+		listDieta.add(ds);
+		clmNutrientes.setCellValueFactory(new PropertyValueFactory<Dieta, Number>("cantidadnutrientes"));
 		btnAgregar.setDisable(true);
-		cmbAlimentos.setDisable(true);
 		cmbAnimal.setDisable(true);
 		btnAsignar.setDisable(true);
+		btnAnimal.setDisable(true);
 		btnNuevo.setDisable(false);
-
+		tvDieta.setDisable(false);
+		dpkrFechaFinal.setDisable(true);
 	}
-
 }

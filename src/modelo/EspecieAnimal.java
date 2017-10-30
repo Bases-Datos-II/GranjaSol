@@ -115,11 +115,7 @@ String caracteristica, String uso) {
 			}catch( Exception a){
 				System.out.println("llenar animal"+a);
 			}
-
-
 		}
-
-
 	@Override
 	public String toString(){
 		return nombreEspecie.get();
