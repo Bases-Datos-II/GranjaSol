@@ -1,5 +1,7 @@
 package modelo;
 
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -65,42 +67,58 @@ Date fechaInicio, Date fechaFin) {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
 	//Funcionalidad
 	public int guardarRegisto(Connection connection) {
 		try {
 			//Evitar inyeccion
 			PreparedStatement instruccion= connection.prepareStatement(
-					"INSERT INTO TBL_HISTORIAL " + 
+					"INSERT INTO TBL_HISTORIAL " +
 					"(CODIGO_HISTORIAL, "
 					+ "CODIGO_DIETA, "
 					+ "CODIGO_ANIMAL, "
 					+ "FECHA_INICIO, "
-					+ "FECHA_FIN)VALUES " + 
+					+ "FECHA_FIN)VALUES " +
 					"(S_HISTORIAL.NEXTVAL, ?, ?, ?, ?)");
+			return instruccion.executeUpdate();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int h_Dieta_nueva(Connection connection)
+	{
+		try
+		{	//PreparedStatement instruccion = connection.prepareStatement("EXEC SP_INSERDIETA(?,?,?,?)");
+			CallableStatement instruccion = connection.prepareCall("{call SP_HISTORIAL(?,?,?,?)}");
+
 			instruccion.setInt(1, codigoDieta.getCodigo());
 			instruccion.setString(2, codigoAnimal.getCodigoAnimal());
 			instruccion.setDate(3, fechaInicio);
 			instruccion.setDate(4, fechaFin);
-			
+
+
 			return instruccion.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
-		} 
-		
+		}
+
 	}
 	public int actualizarRegistro(Connection connection) {
 		try {
 			PreparedStatement instruccion = connection.prepareStatement(
-					"UPDATE TBL_HISTORIAL " + 
-					"SET " + 
-					" CODIGO_DIETA = ? " + 
-					" ,CODIGO_ANIMAL = ? " + 
-					" ,FECHA_INICIO = ? " + 
-					" ,FECHA_FIN = ? " + 
-					"WHERE " + 
+					"UPDATE TBL_HISTORIAL " +
+					"SET " +
+					" CODIGO_DIETA = ? " +
+					" ,CODIGO_ANIMAL = ? " +
+					" ,FECHA_INICIO = ? " +
+					" ,FECHA_FIN = ? " +
+					"WHERE " +
 					"CODIGO_HISTORIAL=?"
 					);
 			instruccion.setInt(1, codigoDieta.getCodigo());
@@ -113,23 +131,26 @@ Date fechaInicio, Date fechaFin) {
 			e.printStackTrace();
 			return 0;
 		}
-		
+
 	}
 	public int eliminarRegistro(Connection connection) {
 		try {
 			PreparedStatement instruccion = connection.prepareStatement(
-					"DELETE FROM TBL_HISTORIAL " + 
-					"WHERE " + 
+					"DELETE FROM TBL_HISTORIAL " +
+					"WHERE " +
 					"CODIGO_HISTORIAL= ?"
 					);
 			instruccion.setInt(1, getCodigoHistorial());
 			return instruccion.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (SQLException e)
+		{
+
 			e.printStackTrace();
 			return 0;
 		}
 	}
+//<<<<<<< HEAD
 	//Llenado de Informacion
 	public static void llenarInformacion(Connection connection, ObservableList<Historial> listaH) {
 		try {
@@ -139,68 +160,69 @@ Date fechaInicio, Date fechaFin) {
 					+ "A.CODIGO_DIETA, "
 					+ "A.CODIGO_ANIMAL, "
 					+ "A.FECHA_INICIO, "
-					+ "A.FECHA_FIN, " 
+					+ "A.FECHA_FIN, "
 					+ "B.NOMBRE_DIETA, "
 					+ "B.FECHA_CREACION, "
 					+ "B.PORCIONES, "
 					+ "B.RECOMENDACIONES, "
-					+ "B.CANTIDAD_NUTRIENTES, " 
+					+ "B.CANTIDAD_NUTRIENTES, "
 					+ "C.CODIGO_ESPECIE, "
 					+ "C.FECHA_NACIMIENTO, "
 					+ "C.SEXO, "
 					+ "C.NECESIDAD_NUTRI, "
-					+ "C.COSTE_ANIMAL, " 
+					+ "C.COSTE_ANIMAL, "
 					+ "D.CODIGO_TIPO_ANIMAL, "
 					+ "D.NOMBRE_ESPECIE, "
 					+ "D.CARACTERISTICA, "
-					+ "D.USO, " 
-					+ "E.NOMBRE_TIPO " 
-					+ "FROM TBL_HISTORIAL A " 
+					+ "D.USO, "
+					+ "E.NOMBRE_TIPO "
+					+ "FROM TBL_HISTORIAL A "
 					+ "INNER JOIN TBL_DIETA B "
-					+ "ON A.CODIGO_DIETA = B.CODIGO_DIETA " 
+					+ "ON A.CODIGO_DIETA = B.CODIGO_DIETA "
 					+ "INNER JOIN TBL_ANIMAL C "
-					+ "ON A.CODIGO_ANIMAL = C.CODIGO_ANIMAL " 
+					+ "ON A.CODIGO_ANIMAL = C.CODIGO_ANIMAL "
 					+ "INNER JOIN TBL_ESPECIE_ANIMAL D "
-					+ "ON C.CODIGO_ESPECIE = D.CODIGO_ESPECIE " 
+					+ "ON C.CODIGO_ESPECIE = D.CODIGO_ESPECIE "
 					+ "INNER JOIN TBL_TIPO_ANIMAL E "
 					+ "ON D.CODIGO_TIPO_ANIMAL = E.CODIGO_TIPO_ANIMAL"
 					);
 			while(resultado.next()) {
 				listaH.add(
 						new Historial(
-								resultado.getInt("CODIGO_HISTORIAL"), 
+								resultado.getInt("CODIGO_HISTORIAL"),
 								new Dieta(
-										resultado.getInt("CODIGO_DIETA"), 
-										resultado.getString("NOMBRE_DIETA"), 
-										resultado.getDate("FECHA_CREACION"), 
-										resultado.getInt("PORCIONES"), 
-										resultado.getString("RECOMENDACIONES"), 
+										resultado.getInt("CODIGO_DIETA"),
+										resultado.getString("NOMBRE_DIETA"),
+										resultado.getDate("FECHA_CREACION"),
+										resultado.getInt("PORCIONES"),
+										resultado.getString("RECOMENDACIONES"),
 										resultado.getInt("CANTIDAD_NUTRIENTES")
-										), 
+										),
 								new Animal(
-										resultado.getString("CODIGO_ANIMAL"), 
+										resultado.getString("CODIGO_ANIMAL"),
 										new EspecieAnimal(
-												resultado.getInt("CODIGO_ESPECIE"), 
+												resultado.getInt("CODIGO_ESPECIE"),
 												new TipoAnimal(
-														resultado.getInt("CODIGO_TIPO_ANIMAL"), 
+														resultado.getInt("CODIGO_TIPO_ANIMAL"),
 														resultado.getString("NOMBRE_TIPO")
-														), 
-												resultado.getString("NOMBRE_ESPECIE"), 
-												resultado.getString("CARACTERISTICA"), 
+														),
+												resultado.getString("NOMBRE_ESPECIE"),
+												resultado.getString("CARACTERISTICA"),
 												resultado.getString("USO")
-												), 
-										resultado.getDate("FECHA_NACIMIENTO"), 
-										resultado.getString("SEXO"), 
-										resultado.getInt("NECESIDAD_NUTRI"), 
+												),
+										resultado.getDate("FECHA_NACIMIENTO"),
+										resultado.getString("SEXO"),
+										resultado.getInt("NECESIDAD_NUTRI"),
 										resultado.getInt("COSTE_ANIMAL")
-										), 
-								resultado.getDate("FECHA_INICIO"), 
+										),
+								resultado.getDate("FECHA_INICIO"),
 								resultado.getDate("FECHA_FIN"))
 						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
+
 }
