@@ -8,10 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modelo.Animal;
 import modelo.EspecieAnimal;
 import modelo.TipoAnimal;
@@ -76,6 +79,15 @@ public class FormInicialController implements Initializable{
 		Conexion.cerrarConexion();
 
 
+	}
+
+	@FXML private  Button btnboton;
+
+	@FXML Scene inicioAnimal;
+
+	public  void cambiarScene(Stage primaryStage){
+
+	    btnboton.setOnAction(e -> primaryStage.setScene(inicioAnimal));
 	}
 
 	@FXML public void selecFamilia(){
