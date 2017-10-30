@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="332.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
+<AnchorPane prefHeight="407.0" prefWidth="1168.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
    <children>
       <SplitPane dividerPositions="0.20591233435270132, 0.5076452599388379" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -25,23 +26,59 @@
                      </font>
                   </Label>
                   <Label fx:id="lblCodigoAnimal" layoutX="148.0" layoutY="224.0" text="Label" />
-                  <Button fx:id="btnGuardar" layoutX="50.0" layoutY="267.0" mnemonicParsing="false" text="GUADAR" />
-                  <ComboBox fx:id="cmbEspecieAnimal" layoutX="29.0" layoutY="177.0" prefWidth="150.0" promptText="Raza Animal" />
+                  <ComboBox fx:id="cmbEspecieAnimal" layoutX="29.0" layoutY="177.0" onAction="#especieAnimal" prefWidth="150.0" promptText="Raza Animal" />
+                  <HBox layoutX="29.0" layoutY="262.0" prefHeight="29.0" prefWidth="150.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarElemento" prefHeight="7.0" prefWidth="64.0" text="GUADAR">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#limpiarComponentes" prefHeight="13.0" prefWidth="57.0" text="Nuevo" />
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="331.0" prefWidth="292.0">
                <children>
-                  <DatePicker layoutX="28.0" layoutY="55.0" styleClass="label-bright" stylesheets="@../../resource/DarkTheme.css" />
+                  <DatePicker fx:id="dtpFecha" layoutX="28.0" layoutY="55.0" styleClass="label-bright" stylesheets="@../../resource/DarkTheme.css" />
                   <Label layoutX="26.0" layoutY="24.0" text="Ingrese Fecha Nacimiento Animal" />
-                  <Label layoutX="45.0" layoutY="101.0" text="Coste Aproximado Animal" />
-                  <TextField layoutX="40.0" layoutY="131.0" />
-                  <Label layoutX="12.0" layoutY="181.0" text="Requerimentos Caloricos Aproximados" />
-                  <TextField layoutX="41.0" layoutY="215.0" />
+                  <Label layoutX="74.0" layoutY="99.0" text="Coste Aproximado Animal" />
+                  <TextField fx:id="txtCoste" layoutX="69.0" layoutY="116.0" />
+                  <Label layoutX="40.0" layoutY="157.0" text="Requerimentos Caloricos Aproximados" />
+                  <TextField fx:id="txtRequerimentos" layoutX="72.0" layoutY="180.0" />
+                  <HBox layoutX="70.0" layoutY="286.0" prefHeight="39.0" prefWidth="156.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="btnActualizar" disable="true" mnemonicParsing="false" onAction="#actualizarAnimal" text="Actualizar" />
+                        <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" text="Eliminar" />
+                     </children>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="70.0" layoutY="242.0" prefHeight="30.0" prefWidth="156.0" spacing="25.0">
+                     <children>
+                        <RadioButton fx:id="rbtFemenino" mnemonicParsing="false" onAction="#selectGenero" text="Hembra">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="grupoGenero" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rbtMasculino" mnemonicParsing="false" onAction="#selectGenero" text="Macho" toggleGroup="$grupoGenero" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="331.0" prefWidth="452.0">
                <children>
-                  <TableView fx:id="tblViewAnimales" layoutX="14.0" layoutY="21.0" prefHeight="330.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tblViewTipoAnimal" layoutX="457.0" prefHeight="394.0" prefWidth="80.0">
+                    <columns>
+                      <TableColumn fx:id="clmntipoAnima" prefWidth="75.0" text="Tipo Animal" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="tblViewAnimales" layoutX="14.0" layoutY="21.0" prefHeight="394.0" prefWidth="445.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="clmncodigoAnimal" prefWidth="58.0" text="Animal" />
                       <TableColumn fx:id="clmnnombreEspecieAnimal" prefWidth="58.0" text="Especie" />

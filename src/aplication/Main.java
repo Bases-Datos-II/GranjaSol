@@ -9,13 +9,15 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-	
+
 	Stage window;
 	Scene scene1, scene2;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("FormInicialController.fxml"));
+
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("FormInicial.fxml"));
+
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
