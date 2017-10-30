@@ -1,6 +1,7 @@
 package modelo;
 
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -86,13 +87,41 @@ String sexo, int necesidadNutri, int coste) {
 		return coste;
 	}
 
-	public void guardarAnimal(){
 
+
+	public static int actualizarAnimal(Connection connection, String codigoAnimal, int necesidadNutri, int coste){
+
+		try {
+			CallableStatement instruccion = connection.prepareCall("{call ACTUALIZARANIMAL(?,?,?)}");
+			instruccion.setString(1,codigoAnimal);
+			instruccion.setInt(2,necesidadNutri);
+			instruccion.setInt(3, coste);
+			return instruccion.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Actualizacion con éxito");
+		return 0;
 
 
 	}
 
-	public void actualizarAnimal(){
+	public int guardarAnimal(Connection connection){
+		try {
+			CallableStatement instruccion = connection.prepareCall("{call SP_INGRESARANIMAL(?,?,?,?,?,?)}");
+			instruccion.setString(1,codigoAnimal.get());
+			instruccion.setInt(2,codigoEspecieAnimal.getCodigoEspecie());
+			instruccion.setDate(3, fechaNacimiento);
+			instruccion.setString(4, sexo.get());
+			instruccion.setInt(5, necesidadNutri.get());
+			instruccion.setInt(6, coste.get());
+			return instruccion.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Registro con Exito con éxito");
+		return 0;
+
 
 	}
 
@@ -143,4 +172,6 @@ String sexo, int necesidadNutri, int coste) {
 
 
 	}
+
+
 }
