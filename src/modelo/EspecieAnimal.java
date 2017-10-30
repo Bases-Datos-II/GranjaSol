@@ -268,11 +268,7 @@ String caracteristica, String uso) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-
 		}
-
-
 	@Override
 	public String toString(){
 		return nombreEspecie.get();

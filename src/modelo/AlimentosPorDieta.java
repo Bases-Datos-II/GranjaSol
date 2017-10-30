@@ -39,7 +39,7 @@ public class AlimentosPorDieta{
 	public int Guardaralimentopordieta(Connection connection )
 	{
 		try
-		{	//PreparedStatement instruccion = connection.prepareStatement("EXEC SP_INSERDIETA(?,?,?,?)");
+		{
 			CallableStatement instruccion = connection.prepareCall("{call SP_INSERT_ALIM_DIETA(?,?)}");
 			instruccion.setInt(1, codigoDieta.getCodigo());
 			instruccion.setInt(2, codigoAlimento.getCodigoAlimento());

@@ -1,6 +1,9 @@
 package modelo;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -59,4 +62,23 @@ Date fechaInicio, Date fechaFin) {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
+	public int h_Dieta_nueva(Connection connection)
+	{
+		try
+		{	//PreparedStatement instruccion = connection.prepareStatement("EXEC SP_INSERDIETA(?,?,?,?)");
+			CallableStatement instruccion = connection.prepareCall("{call SP_HISTORIAL(?,?,?,?)}");
+			instruccion.setInt(1, codigoDieta.getCodigo());
+			instruccion.setString(2, codigoAnimal.getCodigoAnimal());
+			instruccion.setDate(3, fechaInicio);
+			instruccion.setDate(4, fechaFin);
+			return instruccion.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 }

@@ -89,7 +89,6 @@ String sexo, int necesidadNutri, int coste) {
 	public void guardarAnimal(){
 
 
-
 	}
 
 	public void actualizarAnimal(){
@@ -105,14 +104,11 @@ String sexo, int necesidadNutri, int coste) {
 	public static void llenarAnimal(Connection connection, ObservableList<Animal> listaAnimal){
 		try {
 			String consulta = "SELECT A.CODIGO_ANIMAL,A.CODIGO_ESPECIE, B.CODIGO_TIPO_ANIMAL, "
-					+ "C.NOMBRE_TIPO,B.NOMBRE_ESPECIE,B.CARACTERISTICA,B.USO, "
-					+ "A.FECHA_NACIMIENTO, "
-					+ "A.SEXO, A.NECESIDAD_NUTRI, A.COSTE_ANIMAL "
-					+ "FROM TBL_ANIMAL A "
-					+ "INNER JOIN TBL_ESPECIE_ANIMAL B "
-					+ "ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
-					+ "INNER JOIN TBL_TIPO_ANIMAL C "
-					+ "ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL)";
+							+ "C.NOMBRE_TIPO,B.NOMBRE_ESPECIE,B.CARACTERISTICA,B.USO, "
+							+ "A.FECHA_NACIMIENTO, A.SEXO, A.NECESIDAD_NUTRI, A.COSTE_ANIMAL "
+							+ "FROM TBL_ANIMAL A "
+							+ "INNER JOIN TBL_ESPECIE_ANIMAL B ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
+							+ "INNER JOIN TBL_TIPO_ANIMAL C ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL)";
 			Statement instruccion = connection.createStatement();
 			ResultSet resultado = instruccion.executeQuery(consulta);
 
@@ -143,6 +139,47 @@ String sexo, int necesidadNutri, int coste) {
 	}
 	public static void filtroanimal(Connection connection, ObservableList<Animal> listAnimal)
 	{
-		
+		String consulta = "SELECT  A.CODIGO_ANIMAL,A.CODIGO_ESPECIE, B.CODIGO_TIPO_ANIMAL, "
+							+ "C.NOMBRE_TIPO,B.NOMBRE_ESPECIE,B.CARACTERISTICA,B.USO, "
+							+ "A.FECHA_NACIMIENTO, A.SEXO, A.NECESIDAD_NUTRI, A.COSTE_ANIMAL "
+							+ "FROM TBL_ANIMAL A "
+							+ "INNER JOIN TBL_ESPECIE_ANIMAL B ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
+							+ "INNER JOIN TBL_TIPO_ANIMAL C ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL) "
+				        + "inner join TBL_HISTORIAL D on (A.CODIGO_ANIMAL = D.CODIGO_ANIMAL) "
+				        + "where A.NECESIDAD_NUTRI >= (select CANTIDAD_NUTRIENTES "
+				        + "from (select rownum, CANTIDAD_NUTRIENTES "
+				        + "from TBL_DIETA order by rownum desc) where rownum=1) "
+				        + "AND D.FECHA_FIN < SYSDATE";
+
+		try {
+			Statement instruccion = connection.createStatement();
+			ResultSet resultado = instruccion.executeQuery(consulta);
+
+			while(resultado.next())
+			{
+				listAnimal.add(new Animal(resultado.getString("CODIGO_ANIMAL"),
+								new EspecieAnimal(resultado.getInt("CODIGO_ESPECIE"),
+									new TipoAnimal(
+											resultado.getInt("CODIGO_TIPO_ANIMAL"),
+											resultado.getString("NOMBRE_TIPO")
+											),
+									resultado.getString("NOMBRE_ESPECIE"),
+									resultado.getString("CARACTERISTICA"),
+									resultado.getString("USO")),
+						resultado.getDate("FECHA_NACIMIENTO"),
+						resultado.getString("SEXO"),
+						resultado.getInt("NECESIDAD_NUTRI"),
+						resultado.getInt("COSTE_ANIMAL")
+						)
+						);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
 	}
 }
