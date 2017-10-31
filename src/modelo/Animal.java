@@ -21,6 +21,9 @@ public class Animal{
 	private StringProperty sexo;
 	private IntegerProperty necesidadNutri;
 	private IntegerProperty coste;
+	private TipoAnimal nombreTipoANI;
+	private StringProperty NombreTipoAnimal;
+	private StringProperty Caracteristica;
 
 	public Animal(String codigoAnimal, EspecieAnimal codigoEspecieAnimal, Date fechaNacimiento,
 String sexo, int necesidadNutri, int coste) {
@@ -30,6 +33,36 @@ String sexo, int necesidadNutri, int coste) {
 		this.sexo = new SimpleStringProperty(sexo);
 		this.necesidadNutri = new SimpleIntegerProperty(necesidadNutri);
 		this.coste = new SimpleIntegerProperty(coste);
+		setNombreTipoAnimal(codigoEspecieAnimal.getCodigoTipoAnimal().getNombreTipo());
+		setCaracteristica(codigoEspecieAnimal.getCaracteristica());
+	}
+	public String getNombreTipoAnimal() {
+		return NombreTipoAnimal.get();
+	}
+	public void setNombreTipoAnimal(String NombreTipoAnimal) {
+		this.NombreTipoAnimal = new SimpleStringProperty(NombreTipoAnimal);
+	}
+	public StringProperty NombreTipoAnimalProperty() {
+		return NombreTipoAnimal;
+	}
+
+
+	public String getCaracteristica() {
+		return Caracteristica.get();
+	}
+	public void setCaracteristica(String Caracteristica) {
+		this.Caracteristica = new SimpleStringProperty(Caracteristica);
+	}
+	public StringProperty CaracteristicaProperty() {
+		return Caracteristica;
+	}
+
+
+	public TipoAnimal getNombreTipoANI() {
+		return nombreTipoANI;
+	}
+	public void setNombreTipoANI(TipoAnimal nombreTipoANI) {
+		this.nombreTipoANI = nombreTipoANI;
 	}
 
 	//Metodos atributo: codigoAnimal
@@ -86,6 +119,8 @@ String sexo, int necesidadNutri, int coste) {
 	public IntegerProperty CosteProperty() {
 		return coste;
 	}
+
+
 
 
 

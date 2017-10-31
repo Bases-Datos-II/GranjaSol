@@ -21,6 +21,8 @@ public class TipoAnimal{
 		this.nombreTipo = new SimpleStringProperty(nombreTipo);
 	}
 
+
+
 	//Metodos atributo: codigoTipoAnimal
 	public int getCodigoTipoAnimal() {
 		return codigoTipoAnimal.get();

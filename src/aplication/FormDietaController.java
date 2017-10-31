@@ -1,11 +1,11 @@
 package aplication;
 
+import java.awt.Component;
 import java.net.URL;
 import java.sql.Date;
 //import java.sql.ResultSet;
 //import java.sql.Statement;
 import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,6 +29,10 @@ import modelo.Historial;
 import utilidades.conexion;
 
 public class FormDietaController implements Initializable {
+
+	//MAIN
+	private Main main;
+	public Component frame;
 	//complementos columna
 		@FXML private TableColumn<Dieta, String> clmNombre;
 		@FXML private TableColumn<Dieta, Date> clmfechaCreacion;
@@ -274,5 +278,13 @@ public class FormDietaController implements Initializable {
 		tvDieta.setDisable(false);
 		dpkrFechaFinal.setDisable(true);
 		dpkrFechaFinal.setValue(null);
+	}
+
+	public Main getMain() {
+		return main;
+	}
+
+	public void setMain(Main main) {
+		this.main = main;
 	}
 }

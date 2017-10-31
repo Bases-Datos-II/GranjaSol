@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="407.0" prefWidth="1168.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
+<AnchorPane prefHeight="496.0" prefWidth="1317.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FormInicialController">
    <children>
       <SplitPane dividerPositions="0.20591233435270132, 0.5076452599388379" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -37,6 +37,7 @@
                         <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#limpiarComponentes" prefHeight="13.0" prefWidth="57.0" text="Nuevo" />
                      </children>
                   </HBox>
+                  <Button layoutX="93.0" layoutY="355.0" mnemonicParsing="false" text="DIETA" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="331.0" prefWidth="292.0">
@@ -73,12 +74,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="331.0" prefWidth="452.0">
                <children>
-                  <TableView fx:id="tblViewTipoAnimal" layoutX="457.0" prefHeight="394.0" prefWidth="80.0">
-                    <columns>
-                      <TableColumn fx:id="clmntipoAnima" prefWidth="75.0" text="Tipo Animal" />
-                    </columns>
-                  </TableView>
-                  <TableView fx:id="tblViewAnimales" layoutX="14.0" layoutY="21.0" prefHeight="394.0" prefWidth="445.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tblViewAnimales" layoutX="14.0" layoutY="21.0" prefHeight="494.0" prefWidth="644.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="clmncodigoAnimal" prefWidth="58.0" text="Animal" />
                       <TableColumn fx:id="clmnnombreEspecieAnimal" prefWidth="58.0" text="Especie" />
@@ -86,6 +82,8 @@
                         <TableColumn fx:id="clmnsexo" prefWidth="46.0" text="Sexo" />
                         <TableColumn fx:id="clmnnecesidadNutri" prefWidth="130.0" text="Necesidad Nutrientes" />
                         <TableColumn fx:id="clmncoste" prefWidth="46.0" text="Costo" />
+                        <TableColumn fx:id="clmnTipoAnimal" text="Tipo Animal" />
+                        <TableColumn fx:id="clmnFamiliaAnimal" text="Familia" />
                     </columns>
                   </TableView>
                </children>

@@ -18,6 +18,7 @@ public class EspecieAnimal{
 	private StringProperty nombreEspecie;
 	private StringProperty caracteristica;
 	private StringProperty uso;
+	private StringProperty NombreTipoAnimal;
 
 	public EspecieAnimal(int codigoEspecie, TipoAnimal codigoTipoAnimal, String nombreEspecie,
 String caracteristica, String uso) {
@@ -27,6 +28,17 @@ String caracteristica, String uso) {
 		this.caracteristica = new SimpleStringProperty(caracteristica);
 		this.uso = new SimpleStringProperty(uso);
 	}
+	
+	public String getNombreTipoAnimal() {
+		return NombreTipoAnimal.get();
+	}
+	public void setNombreTipoAnimal(String NombreTipoAnimal) {
+		this.NombreTipoAnimal = new SimpleStringProperty(NombreTipoAnimal);
+	}
+	public StringProperty NombreTipoAnimalProperty() {
+		return NombreTipoAnimal;
+	}
+	
 
 	//Metodos atributo: codigoEspecie
 	public int getCodigoEspecie() {
