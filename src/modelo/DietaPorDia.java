@@ -18,14 +18,19 @@ public class DietaPorDia{
 	private StringProperty comentarioDiario;
 	private Date fechaDiario;
 	private StringProperty cumplimientoDiario;
+	private Dieta nombreDieta;
+	private Animal codigoAnimal;
 
 	public DietaPorDia(int codigoDiario, Historial codigoHistorial, String comentarioDiario, 
-Date fechaDiario, String cumplimientoDiario) { 
+Date fechaDiario, String cumplimientoDiario, Dieta nombreDieta, 
+Animal codigoAnimal) { 
 		this.codigoDiario = new SimpleIntegerProperty(codigoDiario);
 		this.codigoHistorial = codigoHistorial;
 		this.comentarioDiario = new SimpleStringProperty(comentarioDiario);
 		this.fechaDiario = fechaDiario;
 		this.cumplimientoDiario = new SimpleStringProperty(cumplimientoDiario);
+		this.nombreDieta = nombreDieta;
+		this.codigoAnimal = codigoAnimal;
 	}
 
 	//Metodos atributo: codigoDiario
@@ -72,6 +77,21 @@ Date fechaDiario, String cumplimientoDiario) {
 	public StringProperty CumplimientoDiarioProperty() {
 		return cumplimientoDiario;
 	}
+	//Metodos atributo: nombreDieta
+	public Dieta getNombreDieta() {
+		return nombreDieta;
+	}
+	public void setNombreDieta(Dieta nombreDieta) {
+		this.nombreDieta = nombreDieta;
+	}
+	//Metodos atributo: codigoAnimal
+	public Animal getCodigoAnimal() {
+		return codigoAnimal;
+	}
+	public void setCodigoAnimal(Animal codigoAnimal) {
+		this.codigoAnimal = codigoAnimal;
+	}
+
 	public static void llenarInformacion(Connection connection, ObservableList<DietaPorDia> listaH) {
 		try {
 			Statement instruccion = connection.createStatement();
@@ -108,7 +128,7 @@ Date fechaDiario, String cumplimientoDiario) {
 					"  INNER JOIN TBL_TIPO_ANIMAL F ON E.CODIGO_TIPO_ANIMAL = F.CODIGO_TIPO_ANIMAL"
 					);
 			while(resultado.next()) {
-				listaH.add( new DietaPorDia(resultado.getInt("CODIGO_DIARIO"),
+				listaH.add(new DietaPorDia(resultado.getInt("CODIGO_DIARIO"),
 						new Historial(
 								resultado.getInt("CODIGO_HISTORIAL"),
 								new Dieta(
@@ -140,7 +160,27 @@ Date fechaDiario, String cumplimientoDiario) {
 								resultado.getDate("FECHA_FIN")), 
 						resultado.getString("COMENTARIO"), 
 						resultado.getDate("FECHA"), 
-						resultado.getString("CUMPLIMIENTO"))
+						resultado.getString("CUMPLIMIENTO"),
+						new Dieta(resultado.getInt("CODIGO_DIETA"), 
+								resultado.getString("NOMBRE_DIETA"), 
+								resultado.getDate("FECHA_CREACION"), 
+								resultado.getInt("PORCIONES"), 
+								resultado.getString("RECOMENDACIONES"), 
+								resultado.getInt("CANTIDAD_NUTRIENTES")),
+						new Animal(resultado.getString("CODIGO_ANIMAL"), 
+								new EspecieAnimal(
+										resultado.getInt("CODIGO_ESPECIE"),
+										new TipoAnimal(
+												resultado.getInt("CODIGO_TIPO_ANIMAL"),
+												resultado.getString("NOMBRE_TIPO")
+												),
+										resultado.getString("NOMBRE_ESPECIE"),
+										resultado.getString("CARACTERISTICA"),
+										resultado.getString("USO")), 
+								resultado.getDate("FECHA_NACIMIENTO"),
+								resultado.getString("SEXO"),
+								resultado.getInt("NECESIDAD_NUTRI"),
+								resultado.getInt("COSTE_ANIMAL")))
 						);
 			}
 		} catch (SQLException e) {
