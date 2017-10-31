@@ -103,7 +103,6 @@ public class FormInicialController implements Initializable{
 		clmnsexo.setCellValueFactory(new PropertyValueFactory<Animal,String>("sexo"));
 		clmnnecesidadNutri.setCellValueFactory(new PropertyValueFactory<Animal,Number>("necesidadNutri"));
 		clmncoste.setCellValueFactory(new PropertyValueFactory<Animal,Number>("coste"));
-
 		clmntipoAnima.setCellValueFactory(new PropertyValueFactory<EspecieAnimal,String>("codigoTipoAnimal"));
 
 		//Llenado de ComboBox

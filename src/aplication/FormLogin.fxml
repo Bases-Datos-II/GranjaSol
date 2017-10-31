@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="262.0" prefWidth="247.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="aplication.FrmLoginController">
+<AnchorPane prefHeight="323.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="75.0" layoutY="39.0" text="GRANJA SOL">
          <font>
@@ -15,8 +15,7 @@
       </Label>
       <Label layoutX="88.0" layoutY="90.0" text="USUARIO" />
       <Label layoutX="76.0" layoutY="139.0" text="CONTRASEÑA" />
-      <Button layoutX="98.0" layoutY="216.0" mnemonicParsing="false" text="Ingresar" />
-      <TextField layoutX="40.0" layoutY="107.0" />
+      <TextField layoutX="50.0" layoutY="114.0" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="184.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="294.0" AnchorPane.topAnchor="114.0" />
       <TextField layoutX="50.0" layoutY="163.0" />
    </children>
 </AnchorPane>

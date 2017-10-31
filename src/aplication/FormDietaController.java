@@ -36,6 +36,13 @@ public class FormDietaController implements Initializable {
 		@FXML private TableColumn<Dieta, String> clmDescripcion;
 		@FXML private TableColumn<Dieta, Number> clmNutrientes;
 
+		@FXML private TableColumn<Animal, Number> clmcodigo;
+		@FXML private TableColumn<Animal, Number> clmespecie;
+		@FXML private TableColumn<Animal, Date> clmfechanac;
+		@FXML private TableColumn<Animal, String> clmsexo;
+		@FXML private TableColumn<Animal, Number> clmnecesidadn;
+		@FXML private TableColumn<Animal, Number> clmcosto;
+
 
 	//complementos gui
 		@FXML private TextField txtNombre;
@@ -53,12 +60,14 @@ public class FormDietaController implements Initializable {
 		@FXML private ComboBox <Alimentos> cmbAlimentos;
 		@FXML private ComboBox <Animal> cmbAnimal;
 		@FXML private TableView <Dieta> tvDieta;
+		@FXML private TableView <Animal> tvAnimales;
 
 
 	//colecciones
 	private ObservableList<Alimentos> listAlimentos;
 	private ObservableList<Animal> listAnimales;
 	private ObservableList<Dieta> listDieta;
+
 
 	private conexion Conexion;
 	private Dieta D;
@@ -103,7 +112,23 @@ public class FormDietaController implements Initializable {
 		listAnimales = FXCollections.observableArrayList();
 		Animal.filtroanimal(Conexion.getConexion(), listAnimales);
 		cmbAnimal.setItems(listAnimales);
+		tvAnimales.setItems(listAnimales);
+
+		clmcodigo.setCellValueFactory(new PropertyValueFactory<Animal, Number>("codigoAnimal"));
+		clmespecie.setCellValueFactory(new PropertyValueFactory<Animal, Number>("codigoEspecieAnimal"));
+		clmfechanac.setCellValueFactory(new PropertyValueFactory<Animal, Date>("fechaNacimiento"));
+		clmsexo.setCellValueFactory(new PropertyValueFactory<Animal, String>("sexo"));
+		clmnecesidadn.setCellValueFactory(new PropertyValueFactory<Animal, Number>("necesidadNutri"));
+		clmcosto.setCellValueFactory(new PropertyValueFactory<Animal, Number>("coste"));
+
 		Conexion.cerrarConexion();
+
+		Conexion.establecerConexion();
+		Dieta ds = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
+		Conexion.cerrarConexion();
+		listDieta.add(ds);
+		txtCalorias.setText(ds.cantidadnutrientesProperty().getValue().toString());
+
 		cmbAlimentos.setDisable(true);
 		btnAgregar.setDisable(true);
 		cmbAnimal.setDisable(false);
@@ -186,6 +211,7 @@ public class FormDietaController implements Initializable {
 							 }
 				           } );
 	}
+
 	@FXML
 	public void HabilitarNuevo()
 	{
@@ -225,7 +251,7 @@ public class FormDietaController implements Initializable {
 		Conexion.establecerConexion();
 
 		Dieta d = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
-		Historial H = new Historial(0,d,cmbAnimal.getSelectionModel().getSelectedItem(),
+		Historial H = new Historial(0,d,tvAnimales.getSelectionModel().getSelectedItem(),
 				                    Date.valueOf(dpkrFecha.getValue()),
 				                    Date.valueOf(dpkrFechaFinal.getValue()));
 
@@ -239,18 +265,14 @@ public class FormDietaController implements Initializable {
 			mensaje.setHeaderText("RESULTADO");
 			mensaje.show();
 		}
-
-		Conexion.establecerConexion();
-		Dieta ds = AlimentosPorDieta.traerultimadieta(Conexion.getConexion());
-		Conexion.cerrarConexion();
-		listDieta.add(ds);
-		clmNutrientes.setCellValueFactory(new PropertyValueFactory<Dieta, Number>("cantidadnutrientes"));
 		btnAgregar.setDisable(true);
 		cmbAnimal.setDisable(true);
+		cmbAnimal.setValue(null);
 		btnAsignar.setDisable(true);
 		btnAnimal.setDisable(true);
 		btnNuevo.setDisable(false);
 		tvDieta.setDisable(false);
 		dpkrFechaFinal.setDisable(true);
+		dpkrFechaFinal.setValue(null);
 	}
 }

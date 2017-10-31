@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -75,10 +75,6 @@ public class TipoAnimal{
 		}catch( Exception a){
 			System.out.println("llenar animal"+a);
 		}
-
-
-
-
 	}
 	@Override
 	public String toString(){

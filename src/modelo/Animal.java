@@ -103,8 +103,6 @@ String sexo, int necesidadNutri, int coste) {
 		}
 		System.out.println("Actualizacion con éxito");
 		return 0;
-
-
 	}
 
 	public int guardarAnimal(Connection connection){
@@ -129,7 +127,7 @@ String sexo, int necesidadNutri, int coste) {
 	@Override
 	public String toString()
 	{
-		return codigoAnimal.get();
+		return codigoAnimal.get() + " ( " + fechaNacimiento.toString()+ " )";
 	}
 
 	public static void llenarAnimal(Connection connection, ObservableList<Animal> listaAnimal){
@@ -177,7 +175,7 @@ String sexo, int necesidadNutri, int coste) {
 							+ "INNER JOIN TBL_ESPECIE_ANIMAL B ON(A.CODIGO_ESPECIE = B.CODIGO_ESPECIE) "
 							+ "INNER JOIN TBL_TIPO_ANIMAL C ON(B.CODIGO_TIPO_ANIMAL = C.CODIGO_TIPO_ANIMAL) "
 				        + "inner join TBL_HISTORIAL D on (A.CODIGO_ANIMAL = D.CODIGO_ANIMAL) "
-				        + "where A.NECESIDAD_NUTRI >= (select CANTIDAD_NUTRIENTES "
+				        + "where A.NECESIDAD_NUTRI <= (select CANTIDAD_NUTRIENTES "
 				        + "from (select rownum, CANTIDAD_NUTRIENTES "
 				        + "from TBL_DIETA order by rownum desc) where rownum=1) "
 				        + "AND D.FECHA_FIN < SYSDATE";
