@@ -24,6 +24,9 @@ import modelo.Historial;
 import utilidades.conexion;
 
 public class FormHistorialController implements Initializable{
+
+	private Main main;
+
 	//Columnas
 	@FXML private TableColumn<Historial, Integer> clmCodigo;
 	@FXML private TableColumn<Historial, Dieta> clmDieta;
@@ -37,17 +40,17 @@ public class FormHistorialController implements Initializable{
 	@FXML private Button btnGuardar;
 	@FXML private Button btnActualizar;
 	@FXML private Button btnEliminar;
-	
+
 	@FXML private ComboBox<Animal> cmbCodAnimal;
 	@FXML private ComboBox<Dieta> cmbCodDieta;
 	@FXML private TableView<Historial> tblViewHistorial;
-	
+
 	//Colecciones
 	private ObservableList<Animal> listaAnimal;
 	private ObservableList<Dieta> listaDieta;
 	private ObservableList<Historial> listaH;
 	public Historial Valor;
-	
+
 	private conexion Acces;
 
 	@Override
@@ -55,16 +58,16 @@ public class FormHistorialController implements Initializable{
 		Acces= new conexion();
 		Acces.establecerConexion();
 		//Inicializar Listas
-		
+
 		listaAnimal= FXCollections.observableArrayList();
 		listaDieta= FXCollections.observableArrayList();
 		listaH= FXCollections.observableArrayList();
 		//Llenar Listas
-		
+
 		Animal.llenarAnimal(Acces.getConexion(), listaAnimal);
 		Dieta.CargarDietas(Acces.getConexion(), listaDieta);
 		Historial.llenarInformacion(Acces.getConexion(), listaH);
-		
+
 		//Enlazar listas con Componentes
 		tblViewHistorial.setItems(listaH);
 		cmbCodAnimal.setItems(listaAnimal);
@@ -77,10 +80,10 @@ public class FormHistorialController implements Initializable{
 		clmFechaFin.setCellValueFactory(new PropertyValueFactory<Historial, Date>("fechaFin"));
 		gestionarEventos();
 		Acces.cerrarConexion();
-		
-		
+
+
 	}
-	
+
 	public void gestionarEventos() {
 		tblViewHistorial.getSelectionModel().selectedItemProperty().addListener(
 				new ChangeListener<Historial>() {
@@ -94,13 +97,13 @@ public class FormHistorialController implements Initializable{
 						dtpkrFechaIni.setValue(valorSeleccionado.getFechaInicio().toLocalDate());
 						dtpkrFechaFin.setValue(valorSeleccionado.getFechaFin().toLocalDate());
 						Valor=new Historial(valorSeleccionado.getCodigoHistorial(), valorSeleccionado.getCodigoDieta(), valorSeleccionado.getCodigoAnimal(), valorSeleccionado.getFechaInicio(), valorSeleccionado.getFechaFin());
-						
+
 						btnGuardar.setDisable(true);
 						btnEliminar.setDisable(false);
 						btnActualizar.setDisable(false);
 						}
 					}
-					
+
 		}
 				);
 	}
@@ -108,10 +111,10 @@ public class FormHistorialController implements Initializable{
 	public void guardarRegistro() {
 		//Crear una nueva instancia del tipo Historial
 		Historial a= new Historial(
-				0, 
-				cmbCodDieta.getSelectionModel().getSelectedItem(), 
-				cmbCodAnimal.getSelectionModel().getSelectedItem(), 
-				Date.valueOf(dtpkrFechaIni.getValue()), 
+				0,
+				cmbCodDieta.getSelectionModel().getSelectedItem(),
+				cmbCodAnimal.getSelectionModel().getSelectedItem(),
+				Date.valueOf(dtpkrFechaIni.getValue()),
 				Date.valueOf(dtpkrFechaFin.getValue())
 				);
 		//Llamar al metodo guardar registro de la clase Historial
@@ -126,15 +129,15 @@ public class FormHistorialController implements Initializable{
 			mensaje.setHeaderText("Resultado");
 			mensaje.show();
 		}
-		
+
 	}
 	@FXML
 	public void actualizarRegistro() {
 		Historial a= new Historial(
-				Valor.getCodigoHistorial(), 
-				cmbCodDieta.getSelectionModel().getSelectedItem(), 
-				cmbCodAnimal.getSelectionModel().getSelectedItem(), 
-				Date.valueOf(dtpkrFechaIni.getValue()), 
+				Valor.getCodigoHistorial(),
+				cmbCodDieta.getSelectionModel().getSelectedItem(),
+				cmbCodAnimal.getSelectionModel().getSelectedItem(),
+				Date.valueOf(dtpkrFechaIni.getValue()),
 				Date.valueOf(dtpkrFechaFin.getValue())
 				);
 		Acces.establecerConexion();
@@ -151,12 +154,12 @@ public class FormHistorialController implements Initializable{
 	}
 	@FXML
 	public void eliminarRegistro() {
-		
+
 		Acces.establecerConexion();
 		int resultado = tblViewHistorial.getSelectionModel().getSelectedItem().eliminarRegistro(Acces.getConexion());
 		Acces.cerrarConexion();
 		if(resultado == 1) {
-			listaH.remove(tblViewHistorial.getSelectionModel().getSelectedIndex()); 
+			listaH.remove(tblViewHistorial.getSelectionModel().getSelectedIndex());
 			Alert mensaje = new Alert(AlertType.INFORMATION);
 			mensaje.setTitle("Registro Eliminado");
 			mensaje.setContentText("El registro ha sido Eliminado exitosamente");
@@ -164,18 +167,26 @@ public class FormHistorialController implements Initializable{
 			mensaje.show();
 		}
 	}
-	
+
 	@FXML
 	public void limpiarComponentes() {
 		cmbCodAnimal.setValue(null);
 		cmbCodDieta.setValue(null);
 		dtpkrFechaIni.setValue(null);
 		dtpkrFechaFin.setValue(null);
-		
+
 		btnGuardar.setDisable(false);
 		btnEliminar.setDisable(true);
 		btnActualizar.setDisable(true);
 	}
-	
+
+	public Main getMain() {
+		return main;
+	}
+
+	public void setMain(Main main) {
+		this.main = main;
+	}
+
 
 }
