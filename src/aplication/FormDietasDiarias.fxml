@@ -32,7 +32,7 @@
                               <TableView layoutX="-74.0" layoutY="-74.0" prefHeight="140.0" prefWidth="434.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
                                   <TableColumn prefWidth="70.0" text="DIETA" />
-                                  <TableColumn prefWidth="91.0" text="COD_ANIMAL" />
+                                  <TableColumn fx:id="tblInformacion" prefWidth="91.0" text="COD_ANIMAL" />
                                     <TableColumn prefWidth="104.0" text="CUMPLIMIENTO" />
                                     <TableColumn prefWidth="45.0" text="FECHA" />
                                     <TableColumn prefWidth="85.0" text="COMENTARIO" />

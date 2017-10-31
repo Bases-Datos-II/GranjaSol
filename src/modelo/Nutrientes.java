@@ -54,6 +54,36 @@ public class Nutrientes{
 		return tipoNutriente;
 	}
 	
+	public static void verNutrientes(Connection connection, ObservableList<Nutrientes> listaNutrientes, int codA)
+	{
+			try {
+				String consulta = "SELECT B.CODIGO_NUTRIENTE, "
+						+ "B.NOMBRE_NUTRIENTE, "
+						+ "B.TIPO_NUTRIENTE "
+						+ "FROM TBL_NUTRIENTES_X_ALIMENTO A "
+						+ "INNER JOIN TBL_NUTRIENTES B "
+						+ "ON A.CODIGO_NUTRIENTE = B.CODIGO_NUTRIENTE "
+						+ "WHERE A.CODIGO_ALIMENTO=?";
+				PreparedStatement sentencia = connection.prepareStatement(consulta);
+		    	sentencia.setInt(1, codA);
+		    	ResultSet resultado = sentencia.executeQuery();
+
+				while(resultado.next())
+				{
+					listaNutrientes.add(new Nutrientes(resultado.getInt("CODIGO_NUTRIENTE"),
+							resultado.getString("NOMBRE_NUTRIENTE"), 
+							resultado.getString("TIPO_NUTRIENTE")
+				            )
+				          );
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch( Exception a){
+				System.out.println("llenar animal"+a);
+			}
+		}
+	
 	public static void llenarInformacion(Connection connection, ObservableList<Nutrientes> lista) {
 		try {
 			Statement statement= connection.createStatement();

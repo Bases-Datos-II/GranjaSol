@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,9 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import modelo.DietaPorDia;
 import modelo.Historial;
+import utilidades.conexion;
 
 public class FormDietasDiariasController implements Initializable{
-	private ObservableList<DietaPorDia> informacion;
+	private ObservableList<DietaPorDia> ListaDiDiaria;
+	private conexion Acces;
 
 	@FXML private TableView<DietaPorDia> tblInformacion;
 
@@ -25,8 +28,14 @@ public class FormDietasDiariasController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		Acces = new conexion();
+		Acces.getConexion();
+		//Inicializar Listas
+		ListaDiDiaria = FXCollections.observableArrayList();
+		//Llenar Lista
+		DietaPorDia.llenarInformacion(Acces.getConexion(), ListaDiDiaria);
+		//Enlazar Lista con Componentes
+		tblInformacion.setItems(ListaDiDiaria);
 	}
 
 }
