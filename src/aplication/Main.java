@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-	//Definiendo Stages
 	private Stage formularioLogin;
 	private Stage formularioDieta;
 	private Stage formularioNutriente;
@@ -38,12 +37,12 @@ public class Main extends Application {
 
 
 
-
 	@Override
 	public void start(Stage primaryStage) {
 
 		formularioLogin = primaryStage;
 		try {
+
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("FormLogin.fxml"));
 			AnchorPane root = (AnchorPane)loader.load();

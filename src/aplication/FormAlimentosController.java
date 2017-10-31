@@ -22,6 +22,8 @@ import modelo.Nutrientes;
 import utilidades.conexion;
 
 public class FormAlimentosController implements Initializable{
+	private int codA;
+	
 	//Listando Columnas del TableView Alimentos
 	@FXML private TableColumn<Alimentos, Integer> clmnCodigo;
 	@FXML private TableColumn<Alimentos, String> clmnNombre;
@@ -87,8 +89,11 @@ public class FormAlimentosController implements Initializable{
 						txtCodAlimento.setText(String.valueOf(valorSeleccionado.getCodigoAlimento()));
 						txtNombre.setText(valorSeleccionado.getNombreAlimento());
 						txtCalorias.setText(String.valueOf(valorSeleccionado.getCalorias()));
-						verNutrientes();
-						
+						listaNutrientes.clear();
+						codA=(valorSeleccionado.getCodigoAlimento());
+						Acceso.establecerConexion();
+						Nutrientes.verNutrientes(Acceso.getConexion(), listaNutrientes, codA);
+						Acceso.cerrarConexion();
 						btnAgregar.setDisable(true);
 						btnActualizar.setDisable(false);
 						btnEliminar.setDisable(false);
