@@ -1,5 +1,6 @@
 package aplication;
 
+import java.awt.Component;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.Scene;
@@ -26,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modelo.Animal;
 import modelo.EspecieAnimal;
@@ -33,6 +36,10 @@ import modelo.TipoAnimal;
 import utilidades.conexion;
 
 public class FormInicialController implements Initializable{
+	//MAIN
+		private Main main;
+		public Component frame;
+
 	//HacEr conexión con la BD
 	private conexion Conexion;
 	private String tipoAnimal;
@@ -49,7 +56,10 @@ public class FormInicialController implements Initializable{
 	@FXML private TableColumn<Animal,String> clmnsexo;
 	@FXML private TableColumn<Animal,Number> clmnnecesidadNutri;
 	@FXML private TableColumn<Animal,Number> clmncoste;
-	@FXML private TableColumn<EspecieAnimal,String> clmntipoAnima;
+	@FXML private TableColumn<Animal,String> clmnTipoAnimal;
+	@FXML private TableColumn<Animal,String> clmnFamiliaAnimal;
+
+	//@FXML private TableColumn<EspecieAnimal,String> clmntipoAnima;
 
 	//Componentes GUI
 	@FXML private Label lblCodigoAnimal;
@@ -62,7 +72,7 @@ public class FormInicialController implements Initializable{
 	@FXML private ComboBox<TipoAnimal> cmbTipoAnimal;
 	@FXML private ComboBox<EspecieAnimal> cmbEspecieAnimal;
 	@FXML private TableView<Animal> tblViewAnimales;
-	@FXML private TableView<EspecieAnimal> tblViewTipoAnimal;
+	//@FXML private TableView<EspecieAnimal> tblViewTipoAnimal;
 	@FXML private Button btnActualizar;
 	@FXML private Button btnEliminar;
 	@FXML private Button btnNuevo;
@@ -93,8 +103,7 @@ public class FormInicialController implements Initializable{
 		cmbTipoAnimal.setItems(listaTipoAnimal);
 		cmbEspecieAnimal.setItems(listaEspecieAnimal);
 		tblViewAnimales.setItems(listaAnimal);
-
-		tblViewTipoAnimal.setItems(listaTipoAnimal2);
+		//tblViewTipoAnimal.setItems(listaTipoAnimal2);
 
 		//Enlazar Columnas con Atributos
 		clmncodigoAnimal.setCellValueFactory(new PropertyValueFactory<Animal,String>("codigoAnimal"));
@@ -104,7 +113,11 @@ public class FormInicialController implements Initializable{
 		clmnnecesidadNutri.setCellValueFactory(new PropertyValueFactory<Animal,Number>("necesidadNutri"));
 		clmncoste.setCellValueFactory(new PropertyValueFactory<Animal,Number>("coste"));
 
-		clmntipoAnima.setCellValueFactory(new PropertyValueFactory<EspecieAnimal,String>("codigoTipoAnimal"));
+		clmnTipoAnimal.setCellValueFactory(new PropertyValueFactory<Animal,String>("NombreTipoAnimal"));
+		clmnFamiliaAnimal.setCellValueFactory(new PropertyValueFactory<Animal,String>("Caracteristica"));
+
+		//clmntipoAnima.setCellValueFactory(new PropertyValueFactory<EspecieAnimal,String>("codigoTipoAnimal"));
+
 
 		//Llenado de ComboBox
 		cmbFamiliaAnimal.getItems().addAll("BOVINO","AVE","RUMIANTE","PORCINO","OVINO","CAPRINO");
@@ -118,14 +131,7 @@ public class FormInicialController implements Initializable{
 
 	}
 
-	@FXML private  Button btnboton;
 
-	@FXML Scene inicioAnimal;
-
-	public  void cambiarScene(Stage primaryStage){
-
-	    btnboton.setOnAction(e -> primaryStage.setScene(inicioAnimal));
-	}
 
 	@FXML public void selecFamilia(){
 
@@ -139,7 +145,8 @@ public class FormInicialController implements Initializable{
 		Conexion.establecerConexion();
 		listaTipoAnimal.clear();
 		gestionarEventos();
-		gestionarEventos2();
+		/*gestionarEventos2();
+		 */
 		/*
 		listaEspecieAnimal.clear();
 		*/
@@ -191,12 +198,15 @@ public class FormInicialController implements Initializable{
 							}
 							dtpFecha.setValue(ValorSeleccionado.getFechaNacimiento().toLocalDate());
 							/*cmbTipoAnimal.setValue(ValorSeleccionado.get);*/
+							cmbFamiliaAnimal.setValue(ValorSeleccionado.getCaracteristica());
 							cmbEspecieAnimal.setValue(ValorSeleccionado.getCodigoEspecieAnimal());
+							cmbTipoAnimal.setValue(ValorSeleccionado.getNombreTipoANI());
+
 							lblCodigoAnimal.setText(ValorSeleccionado.getCodigoAnimal());
 							codigoAnimal = (ValorSeleccionado.getCodigoAnimal());
 							System.out.println(codigoAnimal);
 							listaTipoAnimal2.clear();
-							EspecieAnimal.llenartblvtipAnimal(Conexion.getConexion(), listaTipoAnimal2,codigoAnimal);
+
 							btnGuardar.setDisable(true);
 							btnActualizar.setDisable(false);
 							btnEliminar.setDisable(false);
@@ -282,28 +292,15 @@ public class FormInicialController implements Initializable{
 				genero =""+'M';
 			System.out.println(genero);
 		}
-		public void gestionarEventos2(){
 
-			tblViewTipoAnimal.getSelectionModel().selectedItemProperty().addListener(
-					new ChangeListener<EspecieAnimal>(){
-						@Override
-						public void changed(ObservableValue<? extends EspecieAnimal>
-						arg0,
-						EspecieAnimal ValorAnterior,
-						EspecieAnimal ValorSeleccionado) {
-							System.out.println(codigoAnimal);
-							listaTipoAnimal.clear();
-							cmbTipoAnimal.setValue(ValorSeleccionado.getCodigoTipoAnimal());
-							cmbFamiliaAnimal.setValue(ValorSeleccionado.getCaracteristica());
 
-						}
-					}
 
-					);
-
+		public Main getMain() {
+			return main;
 		}
 
-
-
+		public void setMain(Main main) {
+			this.main = main;
+		}
 
 }

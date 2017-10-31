@@ -1,5 +1,6 @@
 package aplication;
 
+import java.awt.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,12 @@ import modelo.Nutrientes;
 import utilidades.conexion;
 
 public class FormNutrientesController implements Initializable{
+
+	//MAIN
+			private Main main;
+			public Component frame;
+
+
 	//Columnas
 	@FXML private TableColumn<Nutrientes, Integer> clmCodigo;
 	@FXML private TableColumn<Nutrientes, String> clmNombre;
@@ -28,19 +35,20 @@ public class FormNutrientesController implements Initializable{
 	@FXML private TextField txtCodNutriente;
 	@FXML private TextField txtNombre;
 	@FXML private TextField txtTipo;
-	
+
 	@FXML private Button btnNuevo;
 	@FXML private Button btnGuardar;
 	@FXML private Button btnActualizar;
 	@FXML private Button btnEliminar;
 	@FXML private Button btnVolver;
-	
+
 	@FXML private TableView<Nutrientes> tblViewNutrientes;
-	
+
 	private ObservableList<Nutrientes> listaN;
 
-	
+
 	private conexion Acces;
+	private FormInicialController FormInicialController;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -56,19 +64,19 @@ public class FormNutrientesController implements Initializable{
 		clmCodigo.setCellValueFactory(new PropertyValueFactory<Nutrientes, Integer>("codigoNutriente"));
 		clmNombre.setCellValueFactory(new PropertyValueFactory<Nutrientes, String>("nombreNutriente"));
 		clmTipo.setCellValueFactory(new PropertyValueFactory<Nutrientes, String>("tipoNutriente"));
-		
+
 		gestionarEventos();
 		//Siempre CIERRA LA CONEXION
 		Acces.cerrarConexion();
 	}
-	
+
 	@FXML
 	public void guardarRegistro() {
 		//Crear una nueva instancia del tipo Historial
 		Nutrientes a= new Nutrientes(
-				0, 
-				txtNombre.getText(), 
-				txtTipo.getText() 
+				0,
+				txtNombre.getText(),
+				txtTipo.getText()
 				);
 		//Llamar al metodo guardar registro de la clase Historial
 		Acces.establecerConexion();
@@ -82,16 +90,16 @@ public class FormNutrientesController implements Initializable{
 			mensaje.setHeaderText("Resultado");
 			mensaje.show();
 		}
-		
+
 	}
-	
+
 	@FXML
 	public void actualizarRegistro() {
 		//Crear una nueva instancia del tipo Nutriente
 				Nutrientes a= new Nutrientes(
-						Integer.valueOf(txtCodNutriente.getText()), 
-						txtNombre.getText(), 
-						txtTipo.getText() 
+						Integer.valueOf(txtCodNutriente.getText()),
+						txtNombre.getText(),
+						txtTipo.getText()
 						);
 				//Llamar al metodo guardar registro de la clase Historial
 				Acces.establecerConexion();
@@ -121,7 +129,7 @@ public class FormNutrientesController implements Initializable{
 					mensaje.show();
 				}
 	}
-	
+
 	public void gestionarEventos() {
 		tblViewNutrientes.getSelectionModel().selectedItemProperty().addListener(
 				new ChangeListener<Nutrientes>() {
@@ -133,7 +141,7 @@ public class FormNutrientesController implements Initializable{
 						txtCodNutriente.setText(String.valueOf(valorSeleccionado.getCodigoNutriente()));
 						txtNombre.setText(valorSeleccionado.getNombreNutriente());
 						txtTipo.setText(valorSeleccionado.getTipoNutriente());
-						
+
 						btnGuardar.setDisable(true);
 						btnActualizar.setDisable(false);
 						btnEliminar.setDisable(false);
@@ -146,10 +154,17 @@ public class FormNutrientesController implements Initializable{
 		txtCodNutriente.setText(null);
 		txtNombre.setText(null);
 		txtTipo.setText(null);
-		
+
 		btnGuardar.setDisable(false);
 		btnActualizar.setDisable(true);
 		btnEliminar.setDisable(true);
 	}
 
+	public Main getMain() {
+		return main;
+	}
+
+	public void setMain(Main main) {
+		this.main = main;
+	}
 }
