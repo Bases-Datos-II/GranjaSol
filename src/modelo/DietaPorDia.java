@@ -2,6 +2,7 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -91,6 +92,31 @@ Animal codigoAnimal) {
 	public void setCodigoAnimal(Animal codigoAnimal) {
 		this.codigoAnimal = codigoAnimal;
 	}
+	
+	public int actualizarRegistro(Connection connection) {
+		try {
+			PreparedStatement instruccion = connection.prepareStatement(
+					"UPDATE TBL_DIARIO " + 
+					"SET " + 
+					" CODIGO_HISTORIAL = ? " + 
+					" ,COMENTARIO = ? " + 
+					" ,FECHA = SYSDATE " + 
+					" ,CUMPLIMIENTO = ? " + 
+					"WHERE " + 
+					"CODIGO_DIARIO = ?"
+					);
+			instruccion.setInt(1, codigoHistorial.getCodigoHistorial());
+			instruccion.setString(2, getComentarioDiario());
+			instruccion.setString(3, getCumplimientoDiario());
+			instruccion.setInt(4, getCodigoDiario());
+			return instruccion.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+	}
+
 
 	public static void llenarInformacion(Connection connection, ObservableList<DietaPorDia> listaH) {
 		try {
